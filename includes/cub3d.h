@@ -17,13 +17,11 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_cub
-{
-	void	*mlx;
-	void	*win;
-	t_data	img;
-}	t_cub;
+// main.c
 
-void	ft_init_mlx(t_cub *cub);
+// mlx.c
+void	ft_mlx(void);
+void	ft_run_mlx(void *mlx_connection, void *mlx_window, t_data *data);
+void	ft_init_mlx(void **mlx_connection, void **mlx_window, t_data *data);
 
 #endif
