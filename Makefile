@@ -1,7 +1,9 @@
 CC = cc
 NAME = cub3D
 SRC = src/main.c \
-	  src/mlx.c
+	  src/mlx.c \
+	  src/events.c \
+	  src/free.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
