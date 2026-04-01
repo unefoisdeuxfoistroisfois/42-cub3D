@@ -5,23 +5,31 @@
 
 # define HEIGHT 800
 
-#  include "mlx.h"
+# include "mlx.h"
 # include "../Libft/libft.h"
+# include <stdio.h>
 
 typedef struct s_data
 {
 	void	*img;
+	void	*mlx;
+	void	*win;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 }	t_data;
 
-// main.c
 
 // mlx.c
 void	ft_mlx(void);
 void	ft_run_mlx(void *mlx_connection, void *mlx_window, t_data *data);
 void	ft_init_mlx(void **mlx_connection, void **mlx_window, t_data *data);
+
+// events.c
+int ft_key(int keycode, t_data *data);
+
+// free.c
+int	ft_clean(t_data *data);
 
 #endif
