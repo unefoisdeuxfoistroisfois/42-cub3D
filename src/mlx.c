@@ -7,7 +7,8 @@ void	ft_init_mlx(void **mlx_connection, void **mlx_window, t_data *data)
 
 	// Crée une fenêtre de la taille donnée avec un titre.
 	*mlx_window = mlx_new_window(*mlx_connection, WIDTH, HEIGHT, "cub3D");
-
+	data->mlx = *mlx_connection;
+	data->win = *mlx_window;
 	//	Crée une image en mémoire (le buffer où on vas dessiner).
 	data->img = mlx_new_image(*mlx_connection, WIDTH, HEIGHT);
 
@@ -17,6 +18,9 @@ void	ft_init_mlx(void **mlx_connection, void **mlx_window, t_data *data)
 
 void	ft_run_mlx(void *mlx_connection, void *mlx_window, t_data *data)
 {
+	mlx_key_hook(mlx_window, ft_key, data);
+	mlx_hook(data->win, 17, 0, ft_clean, data); // peux quittér le programme avec al croix
+
 	//envoie l'image du buffer vers la fenêtre pour l'afficher.
 	mlx_put_image_to_window(mlx_connection, mlx_window, data->img, 0, 0);
 
