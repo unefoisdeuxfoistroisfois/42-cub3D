@@ -1,10 +1,7 @@
 #include "cub3d.h"
 
-int	main(void)
+int	main()
 {
-	t_cub	cub;
-
-	ft_init_mlx(&cub);
-	mlx_loop(cub.mlx);
+	ft_mlx();
 	return (0);
 }
