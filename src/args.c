@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-/*
+
 int    ft_line(char *str)
 {
     int fd;
@@ -15,12 +15,13 @@ int    ft_line(char *str)
     }
     while ((line = get_next_line(fd)) != NULL)
     {
-        // Traitement de la ligne
+        printf("%s", line);
+        printf("OKOKOK\n");
         free(line);
     }
     close (fd); 
     return (0);
-} */
+}
 
 int    ft_is_dot_cub(char *str)
 {
@@ -50,6 +51,7 @@ void    ft_args(char *str)
     else
     {
         printf("Le fichier est bon\n");
+        ft_line(str);
         exit(EXIT_SUCCESS);
     }
 }
