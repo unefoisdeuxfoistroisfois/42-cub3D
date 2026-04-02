@@ -32,4 +32,8 @@ int ft_key(int keycode, t_data *data);
 // free.c
 int	ft_clean(t_data *data);
 
+// args.c
+void    ft_args(char *str);
+int    ft_is_dot_cub(char *str);
+
 #endif
