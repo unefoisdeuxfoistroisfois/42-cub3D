@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-
+// Traitement de la ligne
 int    ft_line(char *str)
 {
     int fd;
@@ -10,14 +10,17 @@ int    ft_line(char *str)
     fd  = open(str, O_RDONLY);
     if (fd < 0)
     {
-        printf("Ne peut pas ouvrir");
+        printf("Ne peut pas ouvrir le fichier");
         return (-1);
     }
     while ((line = get_next_line(fd)) != NULL)
     {
-        printf("%s", line);
-        printf("OKOKOK\n");
-        free(line);
+        if (line[0] != '\n' && line[0] != '\0')
+        {
+            ft_check_checkure(line);
+        }
+        else
+            free (line);
     }
     close (fd); 
     return (0);
