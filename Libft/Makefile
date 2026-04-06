@@ -6,7 +6,7 @@
 #    By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 14:39:41 by britela-          #+#    #+#              #
-#    Updated: 2026/04/06 22:09:25 by britela-         ###   ########.fr        #
+#    Updated: 2026/04/06 22:54:33 by britela-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC = 	ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 	ft_atoi.c ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c \
 	ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c ft_striteri.c \
 	ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
-	get_next_line.c get_next_line_utils.c
+	get_next_line.c
 
 SRCBONUS = ft_lstnew_bonus.c ft_lstadd_front_bonus.c ft_lstsize_bonus.c \
 	   ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstdelone_bonus.c \
@@ -35,7 +35,7 @@ OBJ = 	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o \
 	ft_atoi.o ft_calloc.o ft_strdup.o ft_substr.o ft_strjoin.o \
 	ft_strtrim.o ft_split.o ft_itoa.o ft_strmapi.o ft_striteri.o \
 	ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
-	get_next_line.o get_next_line_utils.o
+	get_next_line.o
 
 OBJBONUS = ft_lstnew_bonus.o ft_lstadd_front_bonus.o ft_lstsize_bonus.o \
 	   ft_lstlast_bonus.o ft_lstadd_back_bonus.o ft_lstdelone_bonus.o \

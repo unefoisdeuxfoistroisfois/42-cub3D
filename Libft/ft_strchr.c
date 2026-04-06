@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: britela- <britela-@student.s19.be>         +#+  +:+       +#+        */
+/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 18:34:55 by britela-          #+#    #+#             */
-/*   Updated: 2025/04/17 19:14:38 by britela-         ###   ########.fr       */
+/*   Updated: 2026/04/06 22:44:44 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strchr(const char *s, int c)
 	char	*str;
 	int		i;
 
+	if (s == NULL)
+		return (NULL);
 	cc = (char)c;
 	str = (char *)s;
 	i = 0;

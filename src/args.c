@@ -16,7 +16,7 @@ int    ft_line(char *str)
     }
     while ((line = get_next_line(fd)) != NULL)
     {
-        printf("Ligne : %s", line);
+        // printf("Ligne : %s", line);
         if (line[0] != '\n' && line[0] != '\0')
         {
             ft_check_texture(line);

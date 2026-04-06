@@ -6,11 +6,11 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/18 18:50:57 by britela-          #+#    #+#             */
-/*   Updated: 2026/04/06 22:34:41 by britela-         ###   ########.fr       */
+/*   Updated: 2026/04/06 23:03:00 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 void	ft_free(char *str)
 {
@@ -95,7 +95,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*conc;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd != 3)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	word = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (word == NULL)
