@@ -36,4 +36,7 @@ int	ft_clean(t_data *data);
 void    ft_args(char *str);
 int    ft_is_dot_cub(char *str);
 
+//texture.c
+void    ft_check_texture(char *line);
+
 #endif

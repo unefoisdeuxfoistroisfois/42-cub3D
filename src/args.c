@@ -17,7 +17,7 @@ int    ft_line(char *str)
     {
         if (line[0] != '\n' && line[0] != '\0')
         {
-            ft_check_checkure(line);
+            ft_check_texture(line);
         }
         else
             free (line);
@@ -33,8 +33,12 @@ int    ft_is_dot_cub(char *str)
 
     // strchr retourn un NULL;
     dot = ft_strchr (str, '.');
+    if (dot == NULL)
+    {
+        return (0);
+    }
     resstrcmp = ft_strncmp(dot, ".cub", 4);
-    if (dot == NULL || resstrcmp != 0)
+    if (resstrcmp != 0)
     {
         return (0);
     }

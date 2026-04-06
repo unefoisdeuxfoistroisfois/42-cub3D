@@ -1,21 +1,22 @@
 #include "cub3d.h"
 
+// retourne 0 quand c'eest ok
 void    ft_check_texture(char *line)
 {
-    if (ft_strncmp(line, "NO", 2))
+    if (ft_strncmp(line, "NO", 2) == 0)
     {
-        exit(EXIT_FAILURE);
+        printf("Texture Nord : %s\n", line + 3);
     }
-    if (ft_strncmp(line, "SO", 2) != 0)
+    if (ft_strncmp(line, "SO", 2) == 0)
     {
-        exit(EXIT_FAILURE);
+        printf("Texture Sud : %s\n", line + 3);
     }
-    if (ft_strncmp(line, "WE", 2) != 0)
+    if (ft_strncmp(line, "WE", 2) == 0)
     {
-        exit(EXIT_FAILURE);
+        printf("Texture Ouest : %s\n", line + 3);
     }
-    if (ft_strncmp(line, "EA", 2) != 0)
+    if (ft_strncmp(line, "EA", 2) == 0)
     {
-        exit(EXIT_FAILURE);
+        printf("Texture Est : %s\n", line + 3);
     }
 }
