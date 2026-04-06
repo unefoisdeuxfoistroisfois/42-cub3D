@@ -6,7 +6,7 @@
 #    By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 14:39:41 by britela-          #+#    #+#              #
-#    Updated: 2026/04/06 19:48:24 by britela-         ###   ########.fr        #
+#    Updated: 2026/04/06 22:09:25 by britela-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ OBJ = 	ft_isalpha.o ft_isdigit.o ft_isalnum.o ft_isascii.o ft_isprint.o \
 	ft_strrchr.o ft_strncmp.o ft_memchr.o ft_memcmp.o ft_strnstr.o \
 	ft_atoi.o ft_calloc.o ft_strdup.o ft_substr.o ft_strjoin.o \
 	ft_strtrim.o ft_split.o ft_itoa.o ft_strmapi.o ft_striteri.o \
-	ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o
+	ft_putchar_fd.o ft_putstr_fd.o ft_putendl_fd.o ft_putnbr_fd.o \
+	get_next_line.o get_next_line_utils.o
 
 OBJBONUS = ft_lstnew_bonus.o ft_lstadd_front_bonus.o ft_lstsize_bonus.o \
 	   ft_lstlast_bonus.o ft_lstadd_back_bonus.o ft_lstdelone_bonus.o \

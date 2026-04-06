@@ -8,13 +8,15 @@ int    ft_line(char *str)
 
     printf ("Choix : %s\n", str);
     fd  = open(str, O_RDONLY);
-    if (fd < 0)
+    printf("fd = %d\n", fd);
+   if (fd < 0)
     {
         printf("Ne peut pas ouvrir le fichier");
         return (-1);
     }
     while ((line = get_next_line(fd)) != NULL)
     {
+        printf("Ligne : %s", line);
         if (line[0] != '\n' && line[0] != '\0')
         {
             ft_check_texture(line);
