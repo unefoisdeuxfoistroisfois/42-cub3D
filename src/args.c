@@ -8,8 +8,7 @@ int    ft_line(char *str)
 
     printf ("Choix : %s\n", str);
     fd  = open(str, O_RDONLY);
-    printf("fd = %d\n", fd);
-   if (fd < 0)
+    if (fd < 0)
     {
         printf("Ne peut pas ouvrir le fichier");
         return (-1);
@@ -30,16 +29,16 @@ int    ft_line(char *str)
 
 int    ft_is_dot_cub(char *str)
 {
-    char * dot;
+    char * dotcub;
     int resstrcmp;
 
     // strchr retourn un NULL;
-    dot = ft_strchr (str, '.');
-    if (dot == NULL)
+    dotcub = ft_strchr (str, '.');
+    if (dotcub == NULL)
     {
         return (0);
     }
-    resstrcmp = ft_strncmp(dot, ".cub", 4);
+    resstrcmp = ft_strncmp(dotcub, ".cub", 4);
     if (resstrcmp != 0)
     {
         return (0);
@@ -59,7 +58,7 @@ void    ft_args(char *str)
     }
     else
     {
-        printf("Le fichier est bon\n");
+        printf("Le fichier .cub est bon\n");
         ft_line(str);
         exit(EXIT_SUCCESS);
     }
