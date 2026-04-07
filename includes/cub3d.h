@@ -38,5 +38,7 @@ int    ft_is_dot_cub(char *str);
 
 //texture.c
 void    ft_check_texture(char *line);
+char    *ft_path(char *line);
+void    ft_valide_texture(char *path);
 
 #endif
