@@ -18,7 +18,11 @@ int    ft_line(char *str)
         // printf("Ligne : %s", line);
         if (line[0] != '\n' && line[0] != '\0')
         {
+            // Verification des texture
             ft_check_texture(line);
+
+            // Verification des couleurs
+            ft_check_colors(line);
         }
         else
             free (line);
