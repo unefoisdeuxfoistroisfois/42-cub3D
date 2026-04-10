@@ -3,15 +3,26 @@
 void    ft_valide_colors(char *line)
 {
     char    **ressplit;
+    int resatoi;
     int i;
 
     ressplit = ft_split(line, ',');
     i = 0;
     while (ressplit[i] != NULL)
     {
-        ft_atoi(ressplit[i]);
-        printf("%s ", ressplit[i]);
+        resatoi = ft_atoi(ressplit[i]);
+        if (resatoi < 0 || resatoi > 255)
+        {
+            printf ("Les données des couleurs sont trop grand ou trop petit");
+            exit(EXIT_FAILURE);
+        }
+        printf ("%d ", resatoi);
         i ++;
+    }
+    if (i != 3)
+    {
+        printf ("Erreur il faut au moin 3 valeur");
+        exit(EXIT_FAILURE);
     }
     printf ("\n");
 }
