@@ -5,7 +5,8 @@ SRC = src/main.c \
 	  src/events.c \
 	  src/free.c \
 	  src/args.c \
-	  src/texture.c
+	  src/texture.c \
+	  src/color.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
