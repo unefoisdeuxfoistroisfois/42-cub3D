@@ -50,13 +50,17 @@ char    *ft_strcolors(char *line)
 void    ft_check_colors(char *line)
 {
     char *resstrcolors;
+    int resf;
+    int resc;
 
-    if (ft_strncmp(line, "F", 1) == 0)
+    resf = ft_strncmp(line, "F",1 );
+    if (resf == 0)
     {
         resstrcolors = ft_strcolors(line);
         ft_valide_colors(resstrcolors);
     }
-    if (ft_strncmp(line, "C", 1) == 0)
+    resc = ft_strncmp(line, "C",1 );
+    if (resc == 0)
     {
         resstrcolors = ft_strcolors(line);
         ft_valide_colors(resstrcolors);
