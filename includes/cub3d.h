@@ -15,10 +15,22 @@ typedef struct s_data
 	void	*mlx;
 	void	*win;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	int	bits_per_pixel;
+	int	line_length;
+	int	endian;
 }	t_data;
+
+typedef struct s_maps
+{
+	int	no;
+    int	so;
+    int	we;
+    int	ea;
+    int	f;
+    int	c;
+	int	player;
+}	t_maps;
+
 
 
 // mlx.c
@@ -33,8 +45,11 @@ int ft_key(int keycode, t_data *data);
 int	ft_clean(t_data *data);
 
 // args.c
-void    ft_args(char *str);
-int    ft_is_dot_cub(char *str);
+void	ft_args(char *str);
+int	ft_is_dot_cub(char *str);
+int    ft_line(char *str);
+void    ft_flags(char *line, t_maps *maps);
+
 
 // texture.c
 void    ft_check_texture(char *line);
@@ -45,5 +60,9 @@ void    ft_valide_texture(char *path);
 void    ft_check_colors(char *line);
 char    *ft_strcolors(char *line);
 void    ft_valide_colors(char *line);
+
+// maps.c
+int ft_check_maps(char *line, t_maps *maps);
+void	ft_player(char *line, t_maps *maps);
 
 #endif
