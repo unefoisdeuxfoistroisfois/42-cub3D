@@ -1,11 +1,41 @@
 #include "cub3d.h"
 
+void    ft_flags(char *line, t_maps *maps)
+{
+    if (ft_strncmp(line, "NO ", 3) == 0)
+    {
+        maps->no = 1;
+    }
+    if (ft_strncmp(line, "SO ", 3) == 0)
+    {
+        maps->so = 1;
+    }
+    if (ft_strncmp(line, "WE ", 3) == 0)
+    {
+        maps->we = 1;
+    }
+    if (ft_strncmp(line, "EA ", 3) == 0)
+    {
+        maps->ea = 1;
+    }
+    if (ft_strncmp(line, "F ", 2) == 0)
+    {
+        maps->f = 1;
+    }
+    if (ft_strncmp(line, "C ", 2) == 0)
+    {
+        maps->c = 1;
+    }
+}
+
 // Traitement de la ligne
 int    ft_line(char *str)
 {
     int fd;
     char *line;
+    t_maps  maps;
 
+    ft_bzero(&maps, sizeof(t_maps));
     printf ("Choix : %s\n", str);
     fd  = open(str, O_RDONLY);
     if (fd < 0)
@@ -15,19 +45,33 @@ int    ft_line(char *str)
     }
     while ((line = get_next_line(fd)) != NULL)
     {
-        // printf("Ligne : %s", line);
         if (line[0] != '\n' && line[0] != '\0')
         {
-            // Verification des texture
+            ft_flags(line, &maps);
             ft_check_texture(line);
-
-            // Verification des couleurs
             ft_check_colors(line);
+            ft_check_maps(line, &maps);
         }
         else
             free (line);
     }
     close (fd); 
+    if (maps.no == 0 || maps.so == 0 || maps.we == 0 || maps.ea == 0 
+        || maps.f == 0 || maps.c == 0)
+    {
+        printf("Erreur il manque des elements dans la maps");
+        exit(EXIT_FAILURE);
+    }
+    if (maps.player == 0)
+    {
+        printf ("Pas de joueur");
+        exit(EXIT_FAILURE);
+    }
+    if (maps.player == 1)
+    {
+        printf ("Un seul joueur c'est OK");
+    }
+
     return (0);
 }
 
