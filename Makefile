@@ -1,13 +1,13 @@
 CC = cc
 NAME = cub3D
-SRC = src/main.c \
-	  src/mlx.c \
-	  src/events.c \
-	  src/free.c \
-	  src/args.c \
-	  src/texture.c \
-	  src/color.c \
-	  src/maps.c
+SRC = src/parsing/main.c \
+	  src/parsing/mlx.c \
+	  src/parsing/events.c \
+	  src/parsing/free.c \
+	  src/parsing/args.c \
+	  src/parsing/texture.c \
+	  src/parsing/color.c \
+	  src/parsing/maps.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
