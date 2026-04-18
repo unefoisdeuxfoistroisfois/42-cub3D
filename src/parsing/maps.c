@@ -23,6 +23,52 @@ void    ft_player(char *line, t_maps *maps)
     }
 }
 
+/**
+ * on entre le premier element
+ * ensuite 
+ */
+void    ft_add_line(char *line, t_maps *maps)
+{
+    int size;
+    char **newmap;
+
+    // si NULL (premiere ligne) a copié
+    if (maps->map == NULL)
+    {
+        maps->map = malloc(sizeof(char *) * 2);
+        maps->map[0] = ft_strdup(line);
+        maps->map[1] = NULL; // pour quitté la boucle
+        printf ("Premiere ligne stocké : %s", maps->map[0]);
+    }
+    else
+    {
+        // calcul la taille poru une nouveau malloc car on peux pas malloc 2 fois
+        size = 0;
+        while (maps->map[size] != NULL)
+        {
+            size ++;
+        }
+        //la taille acutel de se que contien maps->map * (la nouvelle ligne + NULL)
+        newmap = malloc(sizeof(char * ) *(size + 2));
+
+        // copie notre char ** dans le newmaps car on peu pas malloc 2 feu
+        size = 0;
+        while (maps->map[size] != NULL)
+        {
+            newmap[size] = maps->map[size];
+            size ++;
+        }
+
+        newmap[size] = ft_strdup(line);
+        newmap[size + 1] = NULL;
+        free(maps->map);
+
+        // Comme c'est un ** alros on peux faire un réaffecation vers l'afresse de newmap
+        maps->map = newmap;
+    }
+}
+
+// regard ligne par ligne.
 int ft_check_maps(char *line, t_maps *maps)
 {
     int i;
@@ -43,6 +89,8 @@ int ft_check_maps(char *line, t_maps *maps)
             i ++;
         }
         printf("Aucun caractere etranger dans la linge\n");
+        // Si il y'a aucun caractere étranger alors onpeux la stocker.
+        ft_add_line(line, maps);
         return (1);
     }
     else

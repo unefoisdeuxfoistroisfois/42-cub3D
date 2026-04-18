@@ -29,6 +29,7 @@ typedef struct s_maps
     int	f;
     int	c;
 	int	player;
+	char **map;
 }	t_maps;
 
 

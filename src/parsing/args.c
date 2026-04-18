@@ -72,6 +72,16 @@ int    ft_line(char *str)
         printf ("Un seul joueur c'est OK");
     }
 
+    if (maps.map != NULL)
+    {
+        int i = 0;
+        while (maps.map[i] != NULL)
+        {
+            printf("map[%d] = %s", i, maps.map[i]);
+            i ++;
+        }
+    }
+
     return (0);
 }
 
