@@ -32,8 +32,6 @@ typedef struct s_maps
 	char **map;
 }	t_maps;
 
-
-
 // mlx.c
 void	ft_mlx(void);
 void	ft_run_mlx(void *mlx_connection, void *mlx_window, t_data *data);
@@ -65,5 +63,10 @@ void    ft_valide_colors(char *line);
 // maps.c
 int ft_check_maps(char *line, t_maps *maps);
 void	ft_player(char *line, t_maps *maps);
+
+// maps2.c
+int ft_strlen_maps(t_maps *maps);
+void    ft_check_first_last_line(t_maps *maps);
+void    ft_check_left_right_side(t_maps *maps);
 
 #endif
