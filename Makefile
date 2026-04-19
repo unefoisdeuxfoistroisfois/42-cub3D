@@ -7,7 +7,8 @@ SRC = src/parsing/main.c \
 	  src/parsing/args.c \
 	  src/parsing/texture.c \
 	  src/parsing/color.c \
-	  src/parsing/maps.c
+	  src/parsing/maps.c \
+	  src/parsing/maps2.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
