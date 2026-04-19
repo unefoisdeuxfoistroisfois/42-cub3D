@@ -54,7 +54,7 @@ The parsing reads and validates the `.cub` scene file before launching the engin
 - [x] All 6 elements must be present in the file
 - [x] Map must contain only valid characters: `0`, `1`, `N`, `S`, `E`, `W` and spaces
 - [x] Map must contain exactly one player start position (`N`, `S`, `E` or `W`)
-- [ ] Map must be closed/surrounded by walls
+- [x] Map must be closed/surrounded by walls
 - [x] Map must be the last element in the file
 
 ## Resources
