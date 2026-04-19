@@ -69,4 +69,7 @@ int ft_strlen_maps(t_maps *maps);
 void    ft_check_first_last_line(t_maps *maps);
 void    ft_check_left_right_side(t_maps *maps);
 
+// maps3.c
+void    ft_neighbors(t_maps *maps);
+
 #endif
