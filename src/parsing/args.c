@@ -58,6 +58,7 @@ int    ft_line(char *str)
     close (fd); 
     ft_check_first_last_line(&maps);
     ft_check_left_right_side(&maps);
+    ft_neighbors(&maps);
     if (maps.no == 0 || maps.so == 0 || maps.we == 0 || maps.ea == 0 
         || maps.f == 0 || maps.c == 0)
     {
