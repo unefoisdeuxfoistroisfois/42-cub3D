@@ -1,6 +1,6 @@
 CC = cc
 NAME = cub3D
-SRC = src/parsing/main.c \
+SRC = src/main.c \
 	  src/parsing/mlx.c \
 	  src/parsing/events.c \
 	  src/parsing/free.c \
