@@ -1,5 +1,21 @@
 #include "cub3d.h"
 
+/**
+ * Ma ft_neighbors sa verifie que la map est fermee par des murs si 
+ * je trouve un 0
+ *
+ * Parcourt chaque case de la map avec une double boucle.
+ * Pour chaque '0' trouve, je verifie que ses 4 voisins
+ * (haut, bas, gauche, droite) ne sont pas des espaces.
+ * Si un voisin est un espace, le joueur pourrait sortir
+ * de la map sa ferrait une erreur.
+ *
+ * Protection contre les debordements :
+ * si i > 0 avant de regarder en haut
+ * si maps->map[i + 1] != NULL avant de regarder en bas
+ * si j > 0 avant de regarder a gauche
+ * si maps->map[i][j + 1] != '\0' avant de regarder a droite
+ */
 void    ft_neighbors(t_maps *maps)
 {
     int i;

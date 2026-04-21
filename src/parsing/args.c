@@ -29,7 +29,7 @@ void    ft_flags(char *line, t_maps *maps)
 }
 
 // Traitement de la ligne
-int    ft_line(char *str)
+int    ft_tg(char *str)
 {
     int fd;
     char *line;
