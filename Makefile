@@ -56,8 +56,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX_A)
 	@echo "$$LOGO"
-	@echo "\033[1;32mLIASON DES OBJETS\033[0m"
 	@$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
+	@echo "\033[1;32mCOMPILATION REUSSIE !\033[0m"
+	@echo "\033[1;36mLANCEMENT : ./$(NAME) maps/votre_map.cub\033[0m"
 
 $(MLX_A):
 	$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
