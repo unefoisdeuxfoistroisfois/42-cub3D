@@ -1,3 +1,5 @@
+.SILENT:
+
 CC = cc
 NAME = cub3D
 SRC = src/main.c \
@@ -55,25 +57,27 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT) $(MLX_A)
 	@echo "$$LOGO"
 	@echo "\033[1;32mLIASON DES OBJETS\033[0m"
-	$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
+	@$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
 
 $(MLX_A):
-	$(MAKE) -C $(MLX_DIR) > /dev/null 2>&1
+	$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR) > /dev/null 2>&1
-	$(MAKE) -C $(LIBFT_DIR) bonus > /dev/null 2>&1
+	$(MAKE) -s -C $(LIBFT_DIR) > /dev/null 2>&1
+	$(MAKE) -s -C $(LIBFT_DIR) bonus > /dev/null 2>&1
 
 # .c -> .o
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	@echo "\033[1;31mSUPPRESSION DES .O\033[0m"
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(MLX_DIR) clean
 	$(RM) $(OBJ)
 
 fclean: clean
+	@echo "\033[1;31mSUPPRESSION DU BINAIRE\033[0m"
 	$(MAKE) -C $(LIBFT_DIR) fclean
 	$(RM) $(NAME)
 
