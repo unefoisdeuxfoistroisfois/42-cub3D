@@ -29,14 +29,13 @@ void    ft_flags(char *line, t_maps *maps)
 }
 
 // Traitement de la ligne
-int    ft_line(char *str)
+int    ft_line(char *str, t_maps *maps)
 {
     int fd;
     char *line;
-    t_maps  maps;
 
-    ft_bzero(&maps, sizeof(t_maps));
-    printf ("Choix : %s\n", str);
+    // SAM SUPPRIME : t_maps maps; et ft_bzero (fait dans le main maintenant)
+		printf ("Choix : %s\n", str);
     fd  = open(str, O_RDONLY);
     if (fd < 0)
     {
@@ -48,9 +47,9 @@ int    ft_line(char *str)
         if (line[0] != '\n' && line[0] != '\0')
         {
             ft_flags(line, &maps);
-            ft_check_texture(line);
-            ft_check_colors(line);
-            ft_check_maps(line, &maps);
+            ft_check_texture(line, maps); // MODIFIE : ajout de maps
+            ft_check_colors(line, maps);  // MODIFIE : ajout de maps
+						ft_check_maps(line, &maps);
         }
         else
             free (line);
@@ -107,6 +106,7 @@ int    ft_is_dot_cub(char *str)
     return (1);
 }
 
+// SAM Ajout de t_maps *maps en parametre
 void    ft_args(char *str)
 {
     int res;
@@ -119,7 +119,7 @@ void    ft_args(char *str)
     }
     else
     {
-        printf("Le fichier .cub est bon\n");
-        ft_line(str);
-    }
+    	printf("Le fichier .cub est bon\n");
+    	ft_line(str, maps); // MODIFIE : ajout de maps
+		}
 }

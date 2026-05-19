@@ -23,13 +23,21 @@ typedef struct s_data
 typedef struct s_maps
 {
 	int	no;
-    int	so;
-    int	we;
-    int	ea;
-    int	f;
-    int	c;
+  int	so;
+  int	we;
+  int	ea;
+  int	f;
+  int	c;
 	int	player;
 	char **map;
+	// AJOUT : stockage des chemins de textures
+	char    *path_no;
+	char    *path_so;
+	char    *path_we;
+	char    *path_ea;
+	// AJOUT : stockage des couleurs RGB
+  int     floor[3];
+  int     ceil[3];
 }	t_maps;
 
 // mlx.c
@@ -51,12 +59,12 @@ void    ft_flags(char *line, t_maps *maps);
 
 
 // texture.c
-void    ft_check_texture(char *line);
+void    ft_check_texture(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps 
 char    *ft_path(char *line);
 void    ft_valide_texture(char *path);
 
 // colors.c
-void    ft_check_colors(char *line);
+void    ft_check_colors(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps
 char    *ft_strcolors(char *line);
 void    ft_valide_colors(char *line);
 

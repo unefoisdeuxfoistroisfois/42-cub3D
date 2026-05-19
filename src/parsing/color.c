@@ -1,10 +1,11 @@
 #include "cub3d.h"
 
-void    ft_valide_colors(char *line)
+// SAM Ajout de int *rgb en parametre pour stocker les valeurs
+void    ft_valide_colors(char *line, int *rgb)
 {
     char    **ressplit;
-    int resatoi;
-    int i;
+    int     resatoi;
+    int     i;
 
     ressplit = ft_split(line, ',');
     i = 0;
@@ -13,18 +14,17 @@ void    ft_valide_colors(char *line)
         resatoi = ft_atoi(ressplit[i]);
         if (resatoi < 0 || resatoi > 255)
         {
-            printf ("Les données des couleurs sont trop grand ou trop petit");
+            printf("Les données des couleurs sont trop grand ou trop petit");
             exit(EXIT_FAILURE);
         }
-        printf ("%d ", resatoi);
-        i ++;
+        rgb[i] = resatoi; // AJOUT : stockage de la valeur RGB
+        i++;
     }
     if (i != 3)
     {
-        printf ("Erreur il faut au moin 3 valeur");
+        printf("Erreur il faut au moin 3 valeur");
         exit(EXIT_FAILURE);
     }
-    printf ("\n");
 }
 
 char    *ft_strcolors(char *line)
@@ -47,23 +47,20 @@ char    *ft_strcolors(char *line)
     return (trimmed);
 }
 
-void    ft_check_colors(char *line)
+// SAM Ajout de t_maps *maps en parametre + stockage des couleurs
+void    ft_check_colors(char *line, t_maps *maps)
 {
     char *resstrcolors;
-    int resf;
-    int resc;
 
-    resf = ft_strncmp(line, "F",1 );
-    if (resf == 0)
+    if (ft_strncmp(line, "F", 1) == 0)
     {
         resstrcolors = ft_strcolors(line);
-        ft_valide_colors(resstrcolors);
+        ft_valide_colors(resstrcolors, maps->floor); // AJOUT : passe maps->floor
     }
-    resc = ft_strncmp(line, "C",1 );
-    if (resc == 0)
+    if (ft_strncmp(line, "C", 1) == 0)
     {
         resstrcolors = ft_strcolors(line);
-        ft_valide_colors(resstrcolors);
+        ft_valide_colors(resstrcolors, maps->ceil); // AJOUT : passe maps->ceil
     }
 }
 
