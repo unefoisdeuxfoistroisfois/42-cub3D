@@ -1,18 +1,19 @@
 #include "cub3d.h"
 
-int	ft_clean(t_data *data)
+// MODIFIE : t_game *game au lieu de t_data *data
+int	ft_clean(t_game *game)
 {
-    if (data->img)
+    if (game->data.img) // MODIFIE : game->data.img
     {
-        mlx_destroy_image(data->mlx, data->img);
+        mlx_destroy_image(game->data.mlx, game->data.img);
     }
-    if (data->win)
+    if (game->data.win) // MODIFIE : game->data.win
     {
-        mlx_destroy_window(data->mlx, data->win);
+        mlx_destroy_window(game->data.mlx, game->data.win);
     }
-    if (data->mlx)
+    if (game->data.mlx) // MODIFIE : game->data.mlx
     {
-        free(data->mlx);
+        free(game->data.mlx);
     }
     printf("You left\n");
     exit(0);

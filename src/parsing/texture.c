@@ -55,16 +55,35 @@ char    *ft_path(char *line)
 /*  Je vais check si NO SO WE et EA sont bon si oui on va verifier le chemin grace a 
     ft_path qui va nous renvoyé le chemin apres les coordonnée
     et ft_valide qui va check si c'est ok avec un open*/
-void    ft_check_texture(char *line)
+
+// SAM
+// MODIFIE : ajout de t_maps *maps en parametre + stockage des paths
+void    ft_check_texture(char *line, t_maps *maps)
 {
     char *path;
 
-    if (ft_strncmp(line, "NO" ,2) == 0
-        || ft_strncmp(line, "SO", 2) == 0
-        || ft_strncmp(line, "WE", 2) == 0
-        || ft_strncmp(line, "EA", 2) == 0)
+    if (ft_strncmp(line, "NO", 2) == 0)
     {
         path = ft_path(line);
         ft_valide_texture(path);
+        maps->path_no = path; // AJOUT : stockage du path
+    }
+    if (ft_strncmp(line, "SO", 2) == 0)
+    {
+        path = ft_path(line);
+        ft_valide_texture(path);
+        maps->path_so = path; // AJOUT : stockage du path
+    }
+    if (ft_strncmp(line, "WE", 2) == 0)
+    {
+        path = ft_path(line);
+        ft_valide_texture(path);
+        maps->path_we = path; // AJOUT : stockage du path
+    }
+    if (ft_strncmp(line, "EA", 2) == 0)
+    {
+        path = ft_path(line);
+        ft_valide_texture(path);
+        maps->path_ea = path; // AJOUT : stockage du path
     }
 }
