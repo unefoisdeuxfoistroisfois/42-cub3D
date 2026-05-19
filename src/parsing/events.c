@@ -1,10 +1,11 @@
 #include "cub3d.h"
 
-int ft_key(int keycode, t_data *data)
+// MODIFIE : t_game *game au lieu de t_data *data
+int ft_key(int keycode, t_game *game)
 {
     if (keycode == 65307 || keycode == 53) // ESC
     {
-        ft_clean(data);
+        ft_clean(game); // MODIFIE : game au lieu de data
         return (0);
     }
     if (keycode == 13 || keycode == 119) // W
