@@ -72,7 +72,8 @@ void	ft_init_mlx(t_game *game); // au lieu de plusieurs void params, direct la s
 int ft_key(int keycode, t_game *game); // t_game *game au lieu de t_data *data
 
 // free.c
-int	ft_clean(t_game *game); // t_game *game au lieu de t_data *data 
+int		ft_clean(t_game *game); // t_game *game au lieu de t_data *data 
+void	ft_free_maps(t_maps *maps);
 
 // args.c
 void	ft_args(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps

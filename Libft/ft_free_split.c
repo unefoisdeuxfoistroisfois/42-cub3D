@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/06/04 16:19:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:19:45 by sariee           ###   ########.fr       */
+/*   Created: 2026/01/04 03:08:55 by sariee            #+#    #+#             */
+/*   Updated: 2026/06/04 15:00:44 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int    main(int argc, char **argv)
+void	ft_free_split(char **split)
 {
-    t_game  game;
+	int	i;
 
-    if (argc != 2)
-    {
-        printf("Erreur");
-        return (1);
-    }
-    ft_bzero(&game, sizeof(t_game)); // AJOUT : init tout a zero
-    ft_args(argv[1], &game.maps);    // MODIFIE : passe game.maps
-    ft_mlx(&game);                   // MODIFIE : passe game
-    return (0);
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
 }
+

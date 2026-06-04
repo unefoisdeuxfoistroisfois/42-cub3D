@@ -6,7 +6,7 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:45:54 by britela-          #+#    #+#             */
-/*   Updated: 2026/04/06 22:58:56 by britela-         ###   ########.fr       */
+/*   Updated: 2026/06/04 15:01:53 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*get_next_line(int fd);
 char	*ft_reste(char *str);
 void	ft_free(char *str);
+void	ft_free_split(char **split);
 char	*ft_read(int fd, char *word, char *conc);
 
 #endif
