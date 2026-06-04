@@ -11,14 +11,16 @@
 
 typedef struct s_data
 {
-	void	*img;
-	void	*mlx;
-	void	*win;
-	char	*addr;
-	int	bits_per_pixel;
-	int	line_length;
-	int	endian;
-}	t_data;
+    void    *img;
+    void    *mlx;
+    void    *win;
+    char    *addr;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+    int     width;   // AJOUT
+    int     height;  // AJOUT
+}   t_data;
 
 typedef struct s_maps
 {
@@ -53,10 +55,10 @@ typedef struct s_player
 typedef struct s_game
 {
     t_data      data; // fenetre principale 
-		t_data			tex_no;
-		t_data			tex_so;
-		t_data			tex_we;
-		t_data			tex_ea;
+	t_data		tex_no;
+	t_data		tex_so;
+	t_data		tex_we;
+	t_data		tex_ea;
     t_player    player;
     t_maps      maps; // parsing
     int         floor_color; // couleur sol en 0xRRGGBB
@@ -106,5 +108,8 @@ void    ft_neighbors(t_maps *maps);
 
 // init.c
 void    ft_init_player(t_game *game);
+
+// init_textures.c
+void	ft_init_textures(t_game *game);
 
 #endif
