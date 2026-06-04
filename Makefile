@@ -11,7 +11,8 @@ SRC = src/main.c \
 	  src/parsing/color.c \
 	  src/parsing/maps.c \
 	  src/parsing/maps2.c \
-	  src/parsing/maps3.c
+	  src/parsing/maps3.c \
+	  src/init/init.c 
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)

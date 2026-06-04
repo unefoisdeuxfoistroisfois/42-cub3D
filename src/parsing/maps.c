@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:33:46 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:13:12 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/04 18:43:46 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	ft_add_line(char *line, t_maps *maps)
 	}
 	else
 	{
-		// calcul la taille poru une nouveau malloc car on peux pas malloc 2 fois
+		// calcul la taille pour une nouveau malloc car on peux pas malloc 2 fois
 		size = 0;
 		while (maps->map[size] != NULL)
 		{
 			size ++;
 		}
-		//la taille acutel de se que contien maps->map * (la nouvelle ligne + NULL)
+		//la taille actuel de se que contien maps->map * (la nouvelle ligne + NULL)
 		newmap = malloc(sizeof(char *) * (size + 2));
 		// copie notre char ** dans le newmaps car on peu pas malloc 2 feu
 		size = 0;

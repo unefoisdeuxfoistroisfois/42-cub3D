@@ -104,4 +104,7 @@ void    ft_check_left_right_side(t_maps *maps);
 // maps3.c
 void    ft_neighbors(t_maps *maps);
 
+// init.c
+void    ft_init_player(t_game *game);
+
 #endif

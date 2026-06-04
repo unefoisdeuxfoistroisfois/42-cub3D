@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:19:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:19:45 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/04 18:48:28 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int    main(int argc, char **argv)
     }
     ft_bzero(&game, sizeof(t_game)); // AJOUT : init tout a zero
     ft_args(argv[1], &game.maps);    // MODIFIE : passe game.maps
-    ft_mlx(&game);                   // MODIFIE : passe game
+	ft_init_player(&game);   		 // AJOUT
+    ft_mlx(&game);                   // MODIFIE : passe game 
     return (0);
 }
