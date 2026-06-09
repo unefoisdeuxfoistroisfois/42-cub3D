@@ -71,7 +71,7 @@ void	ft_run_mlx(t_game *game); // au lieu de plusieurs void params, direct la st
 void	ft_init_mlx(t_game *game); // au lieu de plusieurs void params, direct la struct game 
 
 // events.c
-int ft_key(int keycode, t_game *game); // t_game *game au lieu de t_data *data
+int 	ft_key(int keycode, t_game *game); // t_game *game au lieu de t_data *data
 
 // free.c
 int		ft_clean(t_game *game); // t_game *game au lieu de t_data *data 
@@ -79,8 +79,8 @@ void	ft_free_maps(t_maps *maps);
 
 // args.c
 void	ft_args(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
-int	ft_is_dot_cub(char *str);
-int    ft_line(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
+int		ft_is_dot_cub(char *str);
+int		ft_line(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
 void    ft_flags(char *line, t_maps *maps);
 
 
@@ -95,11 +95,11 @@ char    *ft_strcolors(char *line);
 void    ft_valide_colors(char *line, int *rgb);  // Ajout de int *rgb
 
 // maps.c
-int ft_check_maps(char *line, t_maps *maps);
+int 	ft_check_maps(char *line, t_maps *maps);
 void	ft_player(char *line, t_maps *maps);
 
 // maps2.c
-int ft_strlen_maps(t_maps *maps);
+int 	ft_strlen_maps(t_maps *maps);
 void    ft_check_first_last_line(t_maps *maps);
 void    ft_check_left_right_side(t_maps *maps);
 
@@ -111,5 +111,14 @@ void    ft_init_player(t_game *game);
 
 // init_textures.c
 void	ft_init_textures(t_game *game);
+
+// init_colors.c
+void	ft_init_colors(t_game *game);
+
+// render.c
+void	ft_put_pixel(t_game *game, int x, int y, int color);
+
+// raycaster.c
+void    ft_raycaster(t_game *game);
 
 #endif

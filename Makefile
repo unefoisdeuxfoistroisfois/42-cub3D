@@ -13,7 +13,10 @@ SRC = src/main.c \
 	  src/parsing/maps2.c \
 	  src/parsing/maps3.c \
 	  src/init/init.c \
-	  src/init/init_textures.c
+	  src/init/init_textures.c \
+	  src/init/init_colors.c \
+	  src/render/render.c \
+	  src/render/raycaster.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
@@ -57,10 +60,10 @@ LIBFT       = $(LIBFT_DIR)/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX_A)
-	@echo "$$LOGO"
+	@printf "$$LOGO\n"
 	@$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
-	@echo "\033[1;32mCOMPILATION REUSSIE\033[0m"
-	@echo "\033[1;36mUSAGE : ./$(NAME) maps/votre_map.cub\033[0m"
+	@printf "\033[1;32mCOMPILATION REUSSIE\033[0m\n"
+	@printf "\033[1;36mUSAGE : ./$(NAME) maps/votre_map.cub\033[0m\n"
 
 $(MLX_A):
 	$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
@@ -74,13 +77,13 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "\033[1;31mSUPPRESSION DES .O\033[0m"
+	@printf "\033[1;31mSUPPRESSION DES .O\033[0m\n"
 	$(MAKE) -s -C $(LIBFT_DIR) clean > /dev/null 2>&1
 	$(MAKE) -s -C $(MLX_DIR) clean > /dev/null 2>&1
 	$(RM) $(OBJ)
 
 fclean: clean
-	@echo "\033[1;31mSUPPRESSION DU BINAIRE\033[0m"
+	@printf "\033[1;31mSUPPRESSION DU BINAIRE\033[0m\n"
 	$(MAKE) -s -C $(LIBFT_DIR) fclean  
 	$(RM) $(NAME)
 
