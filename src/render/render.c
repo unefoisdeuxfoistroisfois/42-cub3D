@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 15:44:15 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/09 16:26:05 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/10 17:47:23 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,11 @@ void	ft_put_pixel(t_game *game, int x, int y, int color)
 	// on cast dst `(unsigned int *)dst` pour qu'il traite dst comme un pointeur vers 4 bytes au lieu de 1 byte
 	// ensuite on rajoute le pointeur `*(unsignmed int*)dstdevant la paranthese pour qu'il ecrit les 4 bytes d'un coup
 	*(unsigned int *)dst = color;
+}
+
+int	ft_render(t_game *game)
+{
+	ft_raycaster(game);
+	mlx_put_image_to_window(game->data.mlx, game->data.win, game->data.img, 0, 0);
+	return (0);
 }

@@ -1,13 +1,37 @@
 #ifndef cub3D
 #define cub3D
 
-# define WIDTH 800
+// Size window
 
-# define HEIGHT 800
+# define WIDTH 2000
+# define HEIGHT 2000
+
+// KEYCODE
+
+# define W	119
+# define S	115
+# define A	97
+# define D	100
+# define W_MAC	13		// FAUT PAS OUBLIER QU IL Y A UN PROBLEME AVEC LES FLECHES A CHANGER DANS MOVE.C AUSSI
+# define A_MAC	2
+# define S_MAC	1
+# define D_MAC	0
+# define ESC	65307
+# define ESC_MAC	53
+# define LEFT	65363
+# define RIGHT	65361
+# define LEFT_MAC	124
+# define RIGHT_MAC	123
+
+// SPEED PLAYER AND SPEED ROTATE
+
+# define SPEED 0.05
+# define ROT_SPEED 0.03
 
 # include "mlx.h"
 # include "../Libft/libft.h"
 # include <stdio.h>
+# include <math.h>
 
 typedef struct s_data
 {
@@ -50,7 +74,31 @@ typedef struct s_player
     double  dir_y;
     double  plane_x;
     double  plane_y;
+	double	new_pos_x;
+	double	new_pos_y;
 }   t_player;
+
+// typedef struct s_raycasting
+// {
+// 	int     x;
+// 	int		y;
+// 	int		side;
+// 	int		map_x;
+// 	int		map_y;
+// 	int 	step_x;
+// 	int 	step_y;
+//     double  camera_x;
+// 	int		draw_end;
+//     double  ray_dir_x;
+//     double  ray_dir_y;
+// 	int		draw_start;
+// 	int		line_height;
+// 	double	side_dist_x;
+// 	double	side_dist_y;
+// 	double	delta_dist_x;
+// 	double	delta_dist_y;
+// 	double	perp_wall_dist;
+// }	t_ray
 
 typedef struct s_game
 {
@@ -106,19 +154,25 @@ void    ft_check_left_right_side(t_maps *maps);
 // maps3.c
 void    ft_neighbors(t_maps *maps);
 
-// init.c
+//	init.c
 void    ft_init_player(t_game *game);
 
-// init_textures.c
+//	init_textures.c
 void	ft_init_textures(t_game *game);
 
-// init_colors.c
+//	init_colors.c
 void	ft_init_colors(t_game *game);
 
-// render.c
+//	render.c
 void	ft_put_pixel(t_game *game, int x, int y, int color);
+int		ft_render(t_game *game);
 
-// raycaster.c
+//	move.c
+void	ft_rotate_player(int keycode, t_game *game);
+void	ft_move_player_WS(int keycode, t_game *game);
+void	ft_move_player_AD(int keycode, t_game *game);
+
+//	raycaster.c
 void    ft_raycaster(t_game *game);
 
 #endif

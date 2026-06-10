@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:28:27 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 15:28:33 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/10 18:23:08 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,10 @@ int	ft_key(int keycode, t_game *game)
 		ft_clean(game); // MODIFIE : game au lieu de data
 		return (0);
 	}
-	if (keycode == 13 || keycode == 119) // W
-		printf("W\n");
-	if (keycode == 0 || keycode == 97) // A
-		printf("A\n");
-	if (keycode == 1 || keycode == 115) // S
-		printf("S\n");
-	if (keycode == 2 || keycode == 100) // D
-		printf("D\n");
-	if (keycode == 123 || keycode == 65361) // fleche gauche
-		printf("Gauche\n");
-	if (keycode == 124 || keycode == 65363) // fleche droite
-		printf("Droite\n");
+	if (keycode == W || keycode == W_MAC || keycode == S || keycode == S_MAC)
+		ft_move_player_WS(keycode, game);
+	if (keycode == A || keycode == A_MAC || keycode == D || keycode == D_MAC)
+		ft_move_player_AD(keycode, game);
+	ft_rotate_player(keycode, game);
 	return (0);
 }

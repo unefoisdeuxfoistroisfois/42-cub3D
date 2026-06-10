@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:34:43 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 15:34:50 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/10 14:28:34 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ void	ft_init_mlx(t_game *game)
 // MODIFIE : t_game *game au lieu de void *mlx_connection, void *mlx_window, t_data *data
 void	ft_run_mlx(t_game *game)
 {
+	ft_raycaster(game);	// AJOUT SAM il faut l'appeler avant de hook pour deja bien avoir l'image rendu 
 	mlx_key_hook(game->data.win, ft_key, game); // MODIFIE
 	mlx_hook(game->data.win, 17, 0, ft_clean, game); // MODIFIE : peux quitter le programme avec la croix
+	mlx_loop_hook(game->data.mlx, ft_render, game); // AJOUT SAM rendu a chaque frame sans cet ajout l'image ne bougera pas
 	// envoie l'image du buffer vers la fenêtre pour l'afficher.
 	mlx_put_image_to_window(game->data.mlx, game->data.win, game->data.img, 0, 0); // MODIFIE
 	// Lance la boucle infinie

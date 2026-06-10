@@ -16,7 +16,8 @@ SRC = src/main.c \
 	  src/init/init_textures.c \
 	  src/init/init_colors.c \
 	  src/render/render.c \
-	  src/render/raycaster.c
+	  src/render/raycaster.c \
+	  src/render/move.c
 
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
