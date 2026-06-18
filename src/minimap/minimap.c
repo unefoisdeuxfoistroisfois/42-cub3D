@@ -6,13 +6,14 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 12:47:51 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/18 15:56:35 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 20:15:09 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_draw_mini_square(t_game *game, int screen_x, int screen_y, int color)
+static void	ft_draw_mini_square(t_game *game, int screen_x,
+		int screen_y, int color)
 {
 	int	dx;
 	int	dy;
@@ -33,49 +34,51 @@ static void	ft_draw_mini_square(t_game *game, int screen_x, int screen_y, int co
 	}
 }
 
-void	ft_draw_minimap(t_game *game)
+static void	ft_check_minimap_segfault(t_game *game, t_minimap *mini)
 {
-	int	i;
-	int	j;
-	int	map_x;
-	int	map_y;
-	int	screen_x;
-	int	screen_y;
-	int	color;
-
-	i = -MINI_RANGE;
-	while (i <= MINI_RANGE)
-	{
-		j = -MINI_RANGE;
-		while (j <= MINI_RANGE)
-		{
-			map_x = (int)game->player.pos_x + j;
-			map_y = (int)game->player.pos_y + i;
-			// position sur l'ecran en haut a gauche pour l'instant
-			screen_x = (j + MINI_RANGE) * MINI_SIZE + MINI_OFF_X;
-			screen_y = (i + MINI_RANGE) * MINI_SIZE + MINI_OFF_Y;
-			// verifications dans l'ordre pour eviter le segfault
-			// on verifie d'abord les limites avant d'acceder au tableau
-			if (map_x < 0 || map_y < 0)
-				color = 0x000000; // hors map (coordonnees negatives) -> noir
-			else if (map_y >= ft_strlen_maps(&game->maps))
-				color = 0x000000; // map_y depasse le nombre de lignes de la map -> noir
-			else if (game->maps.map[map_y] == NULL)
-				color = 0x000000; // ligne inexistante -> noir
-			else if (map_x >= (int)ft_strlen(game->maps.map[map_y]))
-				color = 0x000000; // map_x depasse la longueur de la ligne -> noir
-			else if (game->maps.map[map_y][map_x] == '1')
-				color = 0xAAAAAA; // mur -> gris clair
-			else
-				color = 0x333333; // case vide -> gris fonce
-			// le joueur est toujours au centre de la minimap
-			// on ecrase la couleur precedente par du rouge
-			if (j == 0 && i == 0)
-				color = 0xFF0000; // position du joueur -> rouge
-			ft_draw_mini_square(game, screen_x, screen_y, color);
-			j++;
-		}
-		i++;
-	}
+	// verifications dans l'ordre pour eviter le segfault
+	// on verifie d'abord les limites avant d'acceder au tableau
+	if (mini->map_x < 0 || mini->map_y < 0)
+		mini->color = 0x000000; // hors map (coordonnees negatives) -> noir
+	else if (mini->map_y >= ft_strlen_maps(&game->maps))
+		mini->color = 0x000000; // map_y depasse le nombre de lignes de la map -> noir
+	else if (game->maps.map[mini->map_y] == NULL)
+		mini->color = 0x000000; // ligne inexistante -> noir
+	else if (mini->map_x >= (int)ft_strlen(game->maps.map[mini->map_y]))
+		mini->color = 0x000000; // map_x depasse la longueur de la ligne -> noir
+	else if (game->maps.map[mini->map_y][mini->map_x] == '1')
+		mini->color = 0xAAAAAA; // mur -> gris clair
+	else
+		mini->color = 0x333333; // case vide -> gris fonce
 }
 
+void	ft_draw_minimap(t_game *game)
+{
+	t_minimap	*mini;
+
+	mini = &game->minimap;
+	mini->i = -MINI_RANGE;
+	while (mini->i <= MINI_RANGE)
+	{
+		mini->j = -MINI_RANGE;
+		while (mini->j <= MINI_RANGE)
+		{
+			mini->map_x = (int)game->player.pos_x + mini->j;
+			mini->map_y = (int)game->player.pos_y + mini->i;
+			// position de la case sur l'ecran — minimap en haut a droite
+			// WIDTH - taille_totale_minimap - marge + position_relative_dans_minimap
+			mini->screen_x = WIDTH - (MINI_RANGE * 2 + 1) * MINI_SIZE
+				- MINI_OFF_X + (mini->j + MINI_RANGE) * MINI_SIZE;
+			// screen_y : depuis le haut de l'ecran avec marge
+			mini->screen_y = (mini->i + MINI_RANGE) * MINI_SIZE + MINI_OFF_Y;
+			ft_check_minimap_segfault(game, mini);
+			// le joueur est toujours au centre de la minimap
+			// on ecrase la couleur precedente par du rouge
+			if (mini->j == 0 && mini->i == 0)
+				mini->color = 0xFF0000; // position du joueur -> rouge
+			ft_draw_mini_square(game, mini->screen_x, mini->screen_y, mini->color);
+			mini->j++;
+		}
+		mini->i++;
+	}
+}

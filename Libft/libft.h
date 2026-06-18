@@ -6,7 +6,7 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 14:45:54 by britela-          #+#    #+#             */
-/*   Updated: 2026/06/04 15:01:53 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 17:52:17 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,6 @@ char	*get_next_line(int fd);
 char	*ft_reste(char *str);
 void	ft_free(char *str);
 void	ft_free_split(char **split);
-char	*ft_read(int fd, char *word, char *conc);
+char	*ft_read(int fd, char *stash);
 
 #endif

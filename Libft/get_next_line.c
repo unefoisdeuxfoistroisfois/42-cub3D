@@ -3,112 +3,129 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
+/*   By: sariee <sariee@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/18 18:50:57 by britela-          #+#    #+#             */
-/*   Updated: 2026/04/06 23:03:00 by britela-         ###   ########.fr       */
+/*   Created: 2025/05/13 14:14:27 by sariee            #+#    #+#             */
+/*   Updated: 2026/06/18 17:50:45 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free(char *str)
-{
-	if (str != NULL)
-	{
-		free(str);
-	}
-}
-
-char	*ft_rest(char *str)
+static char	*extract_line(char *stash)
 {
 	int		i;
-	int		j;
-	char	*rest;
+	char	*line;
 
+	if (!stash || !stash[0])
+		return (NULL);
 	i = 0;
-	j = 0;
-	if (str == NULL)
-		return (NULL);
-	while (str[i] != '\0' && str[i] != '\n')
+	while (stash[i] && stash[i] != '\n')
 		i++;
-	if (str[i] == '\0')
-	{
-		ft_free(str);
-		return (NULL);
-	}
-	i++;
-	rest = malloc(sizeof(char) * ft_strlen(str) - i + 1);
-	if (rest == NULL)
-		return (NULL);
-	while (str[i] != '\0')
-		rest[j++] = str[i++];
-	rest[j] = '\0';
-	ft_free(str);
-	return (rest);
+	if (stash[i] == '\n')
+		line = ft_substr(stash, 0, i + 1);
+	else
+		line = ft_substr(stash, 0, i);
+	return (line);
 }
 
-char	*ft_check_word(char *str)
+static char	*update_stash(char *stash)
 {
 	int		i;
-	char	*newword;
+	char	*new_stash;
 
-	i = 0;
-	if (str == NULL)
+	if (!stash)
 		return (NULL);
-	while (str[i] != '\0' && str[i] != '\n')
-	{
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
 		i++;
-	}
-	if (str[i] == '\n')
+	if (stash[i] == '\0')
 	{
-		i++;
+		free(stash);
+		return (NULL);
 	}
-	newword = ft_substr(str, 0, i);
-	return (newword);
+	new_stash = ft_strdup(stash + i + 1);
+	free(stash);
+	if (new_stash && new_stash[0] == '\0')
+	{
+		free(new_stash);
+		new_stash = NULL;
+	}
+	return (new_stash);
 }
 
-char	*ft_read(int fd, char *word, char *conc)
+char	*ft_read(int fd, char *stash)
 {
-	ssize_t	i;
-	char	*position;
+	char	buffer[BUFFER_SIZE + 1];
+	char	*tmp;
+	int		bytes;
 
-	i = 1;
-	position = ft_strchr(conc, '\n');
-	while (position == NULL && i > 0)
+	while (!ft_strchr(stash, '\n') && bytes > 0)
 	{
-		i = read(fd, word, BUFFER_SIZE);
-		if (i < 0)
+		bytes = read(fd, buffer, BUFFER_SIZE);
+		if (bytes == -1)
 		{
+			free(stash);
 			return (NULL);
 		}
-		word[i] = '\0';
-		conc = ft_strjoin(conc, word);
-		position = ft_strchr(conc, '\n');
+		buffer[bytes] = '\0';
+		tmp = ft_strjoin(stash, buffer);
+		free(stash);
+		stash = tmp;
 	}
-	return (conc);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*word;
+	static char	*stash;
 	char		*line;
-	static char	*conc;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	word = malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (word == NULL)
-		return (NULL);
-	conc = ft_read(fd, word, conc);
-	ft_free(word);
-	if (conc == NULL || conc[0] == '\0')
 	{
-		ft_free(conc);
-		conc = NULL;
-		return (NULL);
+		if (fd < 0 && stash)
+			return (free(stash), stash = NULL, NULL);
 	}
-	line = ft_check_word(conc);
-	conc = ft_rest(conc);
+	stash = ft_read(fd, stash);
+	if (!stash)
+		return (NULL);
+	line = extract_line(stash);
+	if (!line)
+	{
+		free(stash);
+		stash = NULL;
+	}
+	else
+		stash = update_stash(stash);
 	return (line);
 }
+/*#include <fcntl.h> // open
+#include <stdio.h> // printf
+
+int	main(void)
+{
+	int		fd;
+	int		i;
+	char	*line;
+
+	fd = open("test.txt", O_RDONLY);
+	if (fd < 0)
+	{
+		perror("Erreur d'ouverture");
+		return (1);
+	}
+	line = get_next_line(fd);
+	i = 0;
+	while (line)
+	{
+		printf(">>> %s", line); // pas de \n car gnl le garde
+		free(line);
+		if (i == 3)
+			line = get_next_line(-1);
+		else
+			line = get_next_line(fd);
+		i++;
+	}
+	close(fd);
+	return (0);
+}*/

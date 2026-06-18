@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 23:41:25 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/18 15:50:39 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 00:04:42 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_calc_draw_bounds(t_ray *ray)
 
 	// la hauteur de la colonne qu'on va dessiner. Plus le mur est proche, plus la colonne est haute
 	ray->line_height = (int)(HEIGHT / ray->perp_wall_dist);
-
+	
 	// pixel de debut du mur centrer sur l'ecran, `clamp` a `0` si hors ecran
 	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
 	if (ray->draw_start < 0)

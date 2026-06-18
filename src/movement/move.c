@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/10 15:36:37 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/16 13:48:15 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 17:16:25 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_move_player_w(t_game *game)
 		game->player.pos_x = new_pos_x;
 		game->player.pos_y = new_pos_y;
 	}
-	printf("W\n");
 }
 
 void	ft_move_player_s(t_game *game)
@@ -65,7 +64,6 @@ void	ft_move_player_s(t_game *game)
 		game->player.pos_x = new_pos_x;
 		game->player.pos_y = new_pos_y;
 	}
-	printf("S\n");
 }
 
 // deplacement perpendiculaire a gauche, sans changer la direction du regard du joueur
@@ -95,7 +93,6 @@ void	ft_move_player_a(t_game *game)
 		game->player.pos_x = new_pos_x;
 		game->player.pos_y = new_pos_y;
 	}
-	printf("A\n");
 }
 
 // deplacement perpendiculaire a droite, sans changer la direction du regard du joueur
@@ -125,7 +122,6 @@ void	ft_move_player_d(t_game *game)
 		game->player.pos_x = new_pos_x;
 		game->player.pos_y = new_pos_y;
 	}
-	printf("D\n");
 }
 
 //	&& map[(int)(new_pos_y + MARGIN)][(int)(new_pos_x + MARGIN)] != '1'

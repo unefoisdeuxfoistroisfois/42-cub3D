@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:15:50 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 15:54:18 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 17:39:03 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int	ft_line(char *str, t_maps *maps)
 			ft_check_texture(line, maps); // MODIFIE : ajout de maps
 			ft_check_colors(line, maps);  // MODIFIE : ajout de maps
 			ft_check_maps(line, maps);
+			free(line); // ajout de SAM sinon memoire allouer reste comme ca dans le vide
 		}
 		else
 			free (line);

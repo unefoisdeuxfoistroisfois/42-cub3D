@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:21:48 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:37:37 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 17:44:37 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ void	ft_check_colors(char *line, t_maps *maps)
 	{
 		resstrcolors = ft_strcolors(line);
 		ft_valide_colors(resstrcolors, maps->floor); // AJOUT : passe maps->floor
+		free(resstrcolors);
 	}
 	if (ft_strncmp(line, "C ", 2) == 0) // on met C puis espace pour etre sur de trouver la couleur si les textures ne fonctionne pas 
 	{
 		resstrcolors = ft_strcolors(line);
 		ft_valide_colors(resstrcolors, maps->ceil); // AJOUT : passe maps->ceil
+		free(resstrcolors);
 	}
 }
 

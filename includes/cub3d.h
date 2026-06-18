@@ -31,7 +31,7 @@
 
 // MARGIN == marge avant d'etre contre le mur pour ne pas etre dedans
 
-# define MARGIN 0.2
+# define MARGIN 0.15
 
 // Minimap
 
@@ -142,6 +142,7 @@ typedef struct s_game
     int			ceiling_color; // couleur plafond en 0xRRGGBB
     int			keys[6]; // 0=W 1=S 2=A 3=D 4=LEFT 5=RIGHT
 	t_ray		ray;
+	t_minimap	minimap;
 }   t_game;
 
 // mlx.c

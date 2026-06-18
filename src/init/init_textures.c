@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 19:03:36 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/16 12:42:45 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/18 20:09:53 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ static void	ft_load_tex(t_game *game, t_data *tex, char *path)
 // initialisation des textures pour chaque direction.
 void	ft_init_textures(t_game *game)
 {
-	// Direction NO
-	ft_load_tex(game, &game->tex_no, game->maps.path_no);
-	// Direction SO
-	ft_load_tex(game, &game->tex_so, game->maps.path_so);
-	// Direction EA
-	ft_load_tex(game, &game->tex_ea, game->maps.path_ea);
-	// Direction WE
-	ft_load_tex(game, &game->tex_we, game->maps.path_we);
+	ft_load_tex(game, &game->tex_no, game->maps.path_no); // Direction NO
+	ft_load_tex(game, &game->tex_so, game->maps.path_so); // Direction SO
+	ft_load_tex(game, &game->tex_ea, game->maps.path_ea); // Direction EA
+	ft_load_tex(game, &game->tex_we, game->maps.path_we); // Direction WE
 }
