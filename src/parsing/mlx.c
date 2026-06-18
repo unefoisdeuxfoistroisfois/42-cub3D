@@ -30,7 +30,9 @@ void	ft_init_mlx(t_game *game)
 void	ft_run_mlx(t_game *game)
 {
 	ft_raycaster(game);	// AJOUT SAM il faut l'appeler avant de hook pour deja bien avoir l'image rendu 
-	mlx_key_hook(game->data.win, ft_key, game); // MODIFIE
+	mlx_hook(game->data.win, 2, 0, ft_key_press, game);   // touche pressee
+	mlx_hook(game->data.win, 3, 0, ft_key_release, game); // touche relachee
+	mlx_hook(game->data.win, 6, 0, ft_mouse, game); // mouvement souris
 	mlx_hook(game->data.win, 17, 0, ft_clean, game); // MODIFIE : peux quitter le programme avec la croix
 	mlx_loop_hook(game->data.mlx, ft_render, game); // AJOUT SAM rendu a chaque frame sans cet ajout l'image ne bougera pas
 	// envoie l'image du buffer vers la fenêtre pour l'afficher.

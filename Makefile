@@ -17,10 +17,13 @@ SRC = src/main.c \
 	  src/init/init_colors.c \
 	  src/render/render.c \
 	  src/render/raycaster.c \
-	  src/render/move.c
+	  src/render/raycaster2.c \
+	  src/render/move.c \
+	  src/render/rotate.c \
+	  src/minimap/minimap.c
 
 OBJ = $(SRC:.c=.o)
-CFLAGS = -Wall -Wextra -Werror -g -I./includes $(MLX_INC)
+CFLAGS = -Wall -Wextra -Werror -I./includes $(MLX_INC)
 RM = rm -rf
 
 define LOGO

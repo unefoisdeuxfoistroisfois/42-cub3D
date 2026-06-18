@@ -73,7 +73,7 @@ int	ft_line(char *str, t_maps *maps)
 	}
 	if (maps->player == 1)
 	{
-		printf ("Un seul joueur c'est OK");
+		printf ("Un seul joueur c'est OK\n");
 	}
 	if (maps->map != NULL)
 	{

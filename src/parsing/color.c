@@ -66,12 +66,12 @@ void	ft_check_colors(char *line, t_maps *maps)
 {
 	char	*resstrcolors;
 
-	if (ft_strncmp(line, "F", 1) == 0)
+	if (ft_strncmp(line, "F ", 2) == 0) // on met F puis espace pour etre sur de trouver la couleur si les textures ne fonctionne pas 
 	{
 		resstrcolors = ft_strcolors(line);
 		ft_valide_colors(resstrcolors, maps->floor); // AJOUT : passe maps->floor
 	}
-	if (ft_strncmp(line, "C", 1) == 0)
+	if (ft_strncmp(line, "C ", 2) == 0) // on met C puis espace pour etre sur de trouver la couleur si les textures ne fonctionne pas 
 	{
 		resstrcolors = ft_strcolors(line);
 		ft_valide_colors(resstrcolors, maps->ceil); // AJOUT : passe maps->ceil
