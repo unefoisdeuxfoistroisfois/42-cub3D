@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/15 23:41:25 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 00:04:42 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 17:20:19 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ void	ft_draw_column(t_game *game, t_ray *ray)
 
 void	ft_draw_wall_pixel(t_game *game, t_ray *ray)
 {
-	// `tex_y` = ligne de la texture a afficher pour ce pixel
-	// `(y - draw_start)` = distance du pixel actuel depuis le haut du mur dessine
-	// divise par `line_height` = position relative dans le mur, entre `0` et `1`
-	// multiplie par `tex->height` = converti en ligne de texture `(0 a tex->height)`
-	ray->tex_y = (int)((ray->y - ray->draw_start) * ray->tex->height / ray->line_height);
-	ray->tex_y = (int)((ray->y - ray->draw_start) * ray->tex->height / ray->line_height);
+	double	tex_y_d;
+
+	// position normalisee `(0 a 1)` dans la texture pour ce pixel
+	// `tex_pos` avance de `tex_step` a chaque appel (donc a chaque pixel `y`)
+	// et a ete initialise dans `ft_calc_draw_bounds` en tenant compte
+	// du VRAI `line_height` (non clampe), pas de `draw_start` qui lui
+	// peut etre coupe a `0` quand le mur depasse l'ecran
+	// c'est ce qui evite le glissement de texture quand on est pres d'un mur
+	tex_y_d = ray->tex_pos * ray->tex->height;
+	ray->tex_y = (int)tex_y_d;
 	if (ray->tex_y < 0)
 		ray->tex_y = 0;
 	if (ray->tex_y >= ray->tex->height)
@@ -47,6 +51,8 @@ void	ft_draw_wall_pixel(t_game *game, t_ray *ray)
 		+ ray->tex_x * (ray->tex->bits_per_pixel / 8)));
 	// dessine le pixel lu dans la texture sur l'ecran a la position `(x, y)`
 	ft_put_pixel(game, ray->x, ray->y, ray->color);
+	// avance d'un `pas` dans la texture pour le prochain pixel de la colonne
+	ray->tex_pos += ray->tex_step;
 }
 
 void	ft_select_texture(t_game *game, t_ray *ray)
@@ -90,7 +96,7 @@ void	ft_calc_draw_bounds(t_ray *ray)
 {
 	// distance perpendiculaire entre le mur et le joueur ce qui nous evite d'avoir l'effet `fish-eye`
 	// on fait `side_dist_x - delta_dist_x` car dans la boucle `maps != '-1'` on l'incremente
-	// avant de tomber dessus donc la on recule d'un pas de rayon pour avoir la bonne valeur sure
+	// avant de tomber dessus donc la on recule d'un pas de rayon pour avoir la bonne valeur sure 
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist_x - ray->delta_dist_x;
 	else
@@ -108,4 +114,15 @@ void	ft_calc_draw_bounds(t_ray *ray)
 	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
 	if (ray->draw_end >= HEIGHT)
 		ray->draw_end = HEIGHT - 1;
+	// `tex_step` = combien on avance dans la texture `(0 a 1)` par pixel ecran
+	// plus `line_height` est grand `(mur proche)` et plus `tex_step` est petit
+	// donc on `avance lentement` dans la texture ce qui donne zoom correct
+	ray->tex_step = 1.0 / ray->line_height;
+
+	// `tex_pos` = `position de depart` dans la `texture` pour le premier pixel visible
+	// calcule a partir du `VRAI` centre du mur `(HEIGHT/2 - line_height/2)`
+	// pas depuis `draw_start` qui peut etre `clampe` a `0` si le mur deborde de l'ecran
+	// c'est cette difference qui corrige le glissement de texture
+	ray->tex_pos = (ray->draw_start - HEIGHT / 2.0 + ray->line_height / 2.0)
+		* ray->tex_step;
 }

@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:29:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:15:24 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 13:25:26 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,24 @@
 // MODIFIE : t_game *game au lieu de t_data *data
 int	ft_clean(t_game *game)
 {
+	if (game->tex_no.img)
+		mlx_destroy_image(game->data.mlx, game->tex_no.img);
+	if (game->tex_so.img)
+		mlx_destroy_image(game->data.mlx, game->tex_so.img);
+	if (game->tex_we.img)
+		mlx_destroy_image(game->data.mlx, game->tex_we.img);
+	if (game->tex_ea.img)
+		mlx_destroy_image(game->data.mlx, game->tex_ea.img);
 	if (game->data.img) // MODIFIE : game->data.img
 		mlx_destroy_image(game->data.mlx, game->data.img);
 	if (game->data.win) // MODIFIE : game->data.win
 		mlx_destroy_window(game->data.mlx, game->data.win);
-	if (game->data.mlx) // MODIFIE : game->data.mlx
+	ft_free_maps(&game->maps);
+	if (game->data.mlx)
+	{
+		mlx_destroy_display(game->data.mlx);
 		free(game->data.mlx);
+	}
 	printf("You left\n");
 	exit(0);
 	return (0);

@@ -117,6 +117,8 @@ typedef struct s_raycasting
 	int		tex_x;
 	int		tex_y;
 	int		color;
+	double	tex_step;
+	double	tex_pos;
 }	t_ray;
 
 typedef struct s_minimap
