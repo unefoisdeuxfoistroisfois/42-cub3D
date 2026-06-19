@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:28:27 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 12:03:10 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 12:36:02 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 // touche pressee -> met le flag a 1
 int ft_key_press(int keycode, t_game *game)
 {
-	printf("KEY PRESSED: %d\n", keycode); // AJOUT debug temporaire
 	if (keycode == ESC || keycode == ESC_MAC)
 		ft_clean(game);
 	if (keycode == W || keycode == W_MAC)

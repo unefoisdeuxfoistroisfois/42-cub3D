@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:15:50 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 11:33:26 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 12:38:52 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_line(char *str, t_maps *maps)
 	}
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("LIGNE LUE: [%s]\n", line); // AJOUT debug temporaire
 		if (line[0] != '\n' && line[0] != '\0')
 		{
 			ft_flags(line, maps);

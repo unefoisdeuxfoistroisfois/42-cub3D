@@ -25,8 +25,8 @@
 
 // SPEED PLAYER AND SPEED ROTATE
 
-# define SPEED 0.03
-# define ROT_SPEED 0.03
+# define SPEED 0.0225
+# define ROT_SPEED 0.0225
 # define MOUSE_SPEED 0.0005
 
 // MARGIN == marge avant d'etre contre le mur pour ne pas etre dedans
