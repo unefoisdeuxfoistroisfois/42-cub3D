@@ -41,9 +41,10 @@
 # define MINI_OFF_Y 10  // marge depuis le bord haut
 
 # include "mlx.h"
-# include "../Libft/libft.h"
+# include "../Libsriee/Include/libsriee.h"
 # include <stdio.h>
 # include <math.h>
+# include <fcntl.h>
 
 typedef struct s_data
 {

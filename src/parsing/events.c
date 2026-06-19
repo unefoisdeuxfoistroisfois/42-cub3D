@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:28:27 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/16 12:30:30 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 12:03:10 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 // touche pressee -> met le flag a 1
 int ft_key_press(int keycode, t_game *game)
 {
+	printf("KEY PRESSED: %d\n", keycode); // AJOUT debug temporaire
 	if (keycode == ESC || keycode == ESC_MAC)
 		ft_clean(game);
 	if (keycode == W || keycode == W_MAC)
@@ -70,6 +71,6 @@ int	ft_mouse(int x, int y, t_game *game)
 	if (delta == 0)
 		return (0);
 	ft_rotate_angle(delta * MOUSE_SPEED, game);
-	mlx_mouse_move(game->data.win, WIDTH / 2, HEIGHT / 2);
+	mlx_mouse_move(game->data.mlx, game->data.win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }

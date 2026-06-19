@@ -58,8 +58,8 @@ else
 endif
 
 # Libft
-LIBFT_DIR   = Libft
-LIBFT       = $(LIBFT_DIR)/libft.a
+LIBFT_DIR   = Libsriee
+LIBFT       = $(LIBFT_DIR)/libsriee.a
 
 all: $(NAME)
 
@@ -74,7 +74,6 @@ $(MLX_A):
 
 $(LIBFT):
 	$(MAKE) -s -C $(LIBFT_DIR) > /dev/null 2>&1
-	$(MAKE) -s -C $(LIBFT_DIR) bonus > /dev/null 2>&1
 
 # .c -> .o
 %.o: %.c

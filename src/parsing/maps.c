@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:33:46 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 18:43:46 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/19 11:40:06 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_add_line(char *line, t_maps *maps)
 	int		size;
 	char	**newmap;
 
+	printf("AJOUT LIGNE: [%s]\n", line); // AJOUT debug
 	// si NULL (premiere ligne) a copié
 	if (maps->map == NULL)
 	{
@@ -83,6 +84,7 @@ int	ft_check_maps(char *line, t_maps *maps)
 {
 	int	i;
 
+	printf("CHECK_MAPS recoit: [%s] premier char=%d\n", line, (int)line[0]); // AJOUT debug
 	if (line [0] == '1' || line [0] == '0' || line[0] == ' ')
 	{
 		ft_player(line, maps);
