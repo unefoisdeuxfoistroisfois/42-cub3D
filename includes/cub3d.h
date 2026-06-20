@@ -23,6 +23,13 @@
 # define RIGHT_MAC	124
 # define ESC_MAC	53
 
+// Brad : mlx_mouse_move n'a pas la meme signature sur Mac et Linux
+# ifdef __APPLE__
+#  define MLX_MOUSE_MOVE(mlx, win, x, y) mlx_mouse_move(win, x, y)
+# else
+#  define MLX_MOUSE_MOVE(mlx, win, x, y) mlx_mouse_move(mlx, win, x, y)
+# endif
+
 // SPEED PLAYER AND SPEED ROTATE
 
 # define SPEED 0.0225
