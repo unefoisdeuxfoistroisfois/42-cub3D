@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
+/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:15:50 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 12:38:52 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/20 02:22:09 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	ft_is_dot_cub(char *str)
 // SAM Ajout de t_maps *maps en parametre
 void	ft_args(char *str, t_maps *maps)
 {
-<<<<<<< HEAD
     int res;
     // verif si c'est un .dot
     res = ft_is_dot_cub(str);
@@ -123,22 +122,5 @@ void	ft_args(char *str, t_maps *maps)
     {
     	printf("Le fichier .cub est bon\n");
     	ft_line(str, maps); // MODIFIE : ajout de maps
-		}
-}
-=======
-	int	res;
-
-	// verif si c'est un .dot
-	res = ft_is_dot_cub(str);
-	if (res == 0)
-	{
-		printf("Le fichier doit avoir un .cub\n");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		printf("Le fichier .cub est bon\n");
-		ft_line(str, maps); // MODIFIE : ajout de maps
 	}
 }
->>>>>>> 06ff24804330d5bf106018becce98e227fd12acf
