@@ -6,7 +6,11 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:15:50 by sariee            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2026/06/20 02:22:09 by britela-         ###   ########.fr       */
+=======
+/*   Updated: 2026/06/19 18:20:19 by britela-         ###   ########.fr       */
+>>>>>>> 5855f62e86a5f105027e819e4cf922195dcb7ef1
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +126,9 @@ void	ft_args(char *str, t_maps *maps)
     {
     	printf("Le fichier .cub est bon\n");
     	ft_line(str, maps); // MODIFIE : ajout de maps
+<<<<<<< HEAD
 	}
+=======
+		}
+>>>>>>> 5855f62e86a5f105027e819e4cf922195dcb7ef1
 }
