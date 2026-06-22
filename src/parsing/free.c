@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:29:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 18:08:56 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/20 11:27:37 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_clean(t_game *game)
 	ft_free_maps(&game->maps);
 	if (game->data.mlx)
 	{
-		mlx_destroy_display(game->data.mlx);
+		// Brad : mlx_destroy_display n'existe pas sur Mac, free() suffit + exit() laisse l'OS tout nettoyer
+		// mlx_destroy_display(game->data.mlx);
 		free(game->data.mlx);
 	}
 	printf("You left\n");

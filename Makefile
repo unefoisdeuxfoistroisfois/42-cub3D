@@ -67,7 +67,7 @@ $(NAME): $(OBJ) $(LIBFT) $(MLX_A)
 	@printf "$$LOGO\n"
 	@$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
 	@printf "\033[1;32mCOMPILATION REUSSIE\033[0m\n"
-	@printf "\033[1;36mUSAGE : ./$(NAME) maps/votre_map.cub\033[0m\n"
+	@printf "\033[1;36mUSAGE : ./$(NAME) maps/valide/votre_map.cub or ./$(NAME) maps/invalide/la_map.cub to test edge case\033[0m\n"
 
 $(MLX_A):
 	$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
@@ -92,4 +92,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+home: CFLAGS += -D HOME_PC
+home: $(NAME)
+
+.PHONY: all clean fclean re home 

@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:28:27 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/19 12:36:02 by sariee           ###   ########.fr       */
+/*   Updated: 2026/06/20 11:23:08 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ int	ft_mouse(int x, int y, t_game *game)
 	if (delta == 0)
 		return (0);
 	ft_rotate_angle(delta * MOUSE_SPEED, game);
-	mlx_mouse_move(game->data.mlx, game->data.win, WIDTH / 2, HEIGHT / 2);
+	MLX_MOUSE_MOVE(game->data.mlx, game->data.win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }
