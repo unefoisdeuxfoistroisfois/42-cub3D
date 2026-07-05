@@ -6,16 +6,13 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:28:27 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/20 02:22:09 by britela-         ###   ########.fr       */
+/*   Updated: 2026/07/05 20:45:17 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// MODIFIE : t_game *game au lieu de t_data *data
-// fonction boolean pour savoir quand la touche est entrain d'etre presser 
-// touche pressee -> met le flag a 1
-int ft_key_press(int keycode, t_game *game)
+int	ft_key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC || keycode == ESC_MAC)
 		ft_clean(game);
@@ -34,9 +31,7 @@ int ft_key_press(int keycode, t_game *game)
 	return (0);
 }
 
-// fonction boolean pour savoir quand la touche a ete relachee 
-// touche relachee -> remet le flag a 0
-int ft_key_release(int keycode, t_game *game)
+int	ft_key_release(int keycode, t_game *game)
 {
 	if (keycode == W || keycode == W_MAC)
 		game->keys[0] = 0;
@@ -53,18 +48,10 @@ int ft_key_release(int keycode, t_game *game)
 	return (0);
 }
 
-// rotation de la camera a la place des fleches avec la souris
-// delta = distance horizontale entre la souris et le centre de l'ecran
-// Si delta > 0 la souris est a droite du centre -> rotation vers la droite
-// Si delta < 0 la souris est a gauche du centre -> rotation vers la gauche
-// delta est multiplie par MOUSE_SPEED pour convertir un nombre de pixels
-// en un petit angle de rotation exploitable par ft_rotate_angle
-// On recentre ensuite la souris avec mlx_mouse_move pour qu'elle ne
-// sorte jamais de la fenetre et qu'on puisse tourner indefiniment
 int	ft_mouse(int x, int y, t_game *game)
 {
-	int delta;
-	
+	int	delta;
+
 	(void)y;
 	delta = x - WIDTH / 2;
 	if (delta == 0)
