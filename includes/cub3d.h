@@ -178,20 +178,24 @@ int 	ft_key_release(int keycode, t_game *game); // t_game *game au lieu de t_dat
 int		ft_mouse(int x, int y, t_game *game);
 
 // free.c
-int		ft_clean(t_game *game); // t_game *game au lieu de t_data *data 
+int		ft_clean(t_game *game); // t_game *game au lieu de t_data *data
 void	ft_free_maps(t_maps *maps);
+void	ft_exit_if(int cond, t_maps *maps);
 
 // args.c
 void	ft_args(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
 int		ft_is_dot_cub(char *str);
 int		ft_line(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
 void    ft_flags(char *line, t_maps *maps);
+int		ft_read_lines(int fd, t_maps *maps);
+void	ft_check_complete(t_maps *maps);
 
 
 // texture.c
-void    ft_check_texture(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps 
+void    ft_check_texture(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps
 char    *ft_path(char *line);
 void    ft_valide_texture(char *path);
+void	ft_store_texture(char *line, char *tag, char **dest);
 
 // colors.c
 void    ft_check_colors(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps
@@ -201,11 +205,16 @@ void    ft_valide_colors(char *line, int *rgb);  // Ajout de int *rgb
 // maps.c
 int 	ft_check_maps(char *line, t_maps *maps);
 void	ft_player(char *line, t_maps *maps);
+void	ft_add_line(char *line, t_maps *maps);
+void	ft_grow_map(char *line, t_maps *maps);
 
 // maps2.c
 int 	ft_strlen_maps(t_maps *maps);
 void    ft_check_first_last_line(t_maps *maps);
 void    ft_check_left_right_side(t_maps *maps);
+void	ft_check_border_line(char *line, t_maps *maps);
+int		ft_first_non_space(char *str);
+int		ft_last_non_space(char *str);
 
 // maps3.c
 void    ft_neighbors(t_maps *maps);
