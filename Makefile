@@ -66,8 +66,8 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT) $(MLX_A)
 	@printf "$$LOGO\n"
 	@$(CC) $(OBJ) $(CFLAGS) -o $@ $(LIBFT) $(MLX_LINK)
-	@printf "\033[1;32mCOMPILATION REUSSIE\033[0m\n"
-	@printf "\033[1;36mUSAGE : ./$(NAME) maps/votre_map.cub\033[0m\n"
+	@printf "\033[1;32mCOMPILATION SUCCESSFUL\033[0m\n"
+	@printf "\033[1;36mUSAGE : ./$(NAME) maps/your_map.cub\033[0m\n"
 
 $(MLX_A):
 	$(MAKE) -s -C $(MLX_DIR) > /dev/null 2>&1
@@ -80,13 +80,13 @@ $(LIBFT):
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@printf "\033[1;31mSUPPRESSION DES .O\033[0m\n"
+	@printf "\033[1;31mREMOVING .O FILES\033[0m\n"
 	$(MAKE) -s -C $(LIBFT_DIR) clean > /dev/null 2>&1
 	$(MAKE) -s -C $(MLX_DIR) clean > /dev/null 2>&1
 	$(RM) $(OBJ)
 
 fclean: clean
-	@printf "\033[1;31mSUPPRESSION DU BINAIRE\033[0m\n"
+	@printf "\033[1;31mREMOVING BINARY\033[0m\n"
 	$(MAKE) -s -C $(LIBFT_DIR) fclean  
 	$(RM) $(NAME)
 
