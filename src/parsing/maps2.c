@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
+/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:30:43 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/04 16:11:36 by sariee           ###   ########.fr       */
+/*   Updated: 2026/07/05 20:22:11 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,79 +27,38 @@ int	ft_strlen_maps(t_maps *maps)
 void	ft_check_left_right_side(t_maps *maps)
 {
 	int	i;
-	int	j;
 	int	sizemap;
 
 	i = 0;
 	sizemap = ft_strlen_maps(maps);
 	while (i < sizemap)
 	{
-		// sauté les espace car il contient pas de 1
-		j = 0;
-		while ((maps->map[i][j] >= 9 && maps->map[i][j] <= 13)
-			|| maps->map[i][j] == ' ')
-		{
-			j ++;
-		}
-		if (maps->map[i][j] != '1')
-		{
-			printf("Erreur : Bord gauche pas bon [%d] [%d]", i, j);
-			ft_free_maps(maps); // AJOUT
-			exit(EXIT_FAILURE);
-		}
-		// strlen de chaque ligne
-		j = ft_strlen(maps->map[i]) - 1;
-		while ((maps->map[i][j] >= 9 && maps->map[i][j] <= 13)
-			|| maps->map[i][j] == ' ')
-		{
-			j --;
-		}
-		if (maps->map[i][j] != '1')
-		{
-			printf("Erreur : Bord droit pas bon [%d] [%d]", i, j);
-			ft_free_maps(maps); // AJOUT
-			exit(EXIT_FAILURE);
-		}
+		ft_exit_if(maps->map[i][ft_first_non_space(maps->map[i])] != '1',
+			maps);
+		ft_exit_if(maps->map[i][ft_last_non_space(maps->map[i])] != '1',
+			maps);
 		i ++;
 	}
-	printf("OK les coté on que des 1");
+}
+
+void	ft_check_border_line(char *line, t_maps *maps)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != '\0' && line[i] != '\n')
+	{
+		ft_exit_if(line[i] != '1' && line[i] != ' '
+			&& !(line[i] >= 9 && line[i] <= 13), maps);
+		i ++;
+	}
 }
 
 void	ft_check_first_last_line(t_maps *maps)
 {
-	int	i;
 	int	sizemap;
 
-	i = 0;
 	sizemap = ft_strlen_maps(maps);
-	// Premier ligne
-	while (maps->map[0][i] != '\0' && maps->map[0][i] != '\n')
-	{
-		if (maps->map[0][i] != '1'
-			&& maps->map[0][i] != ' '
-			&& !(maps->map[0][i] >= 9 && maps->map[0][i] <= 13))
-		{
-			printf("Erreur : la premiere ligne invalide\n");
-			ft_free_maps(maps); // AJOUT
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	// Derniere ligne
-	i = 0;
-	while (maps->map[sizemap - 1][i] != '\0'
-		&& maps->map[sizemap - 1][i] != '\n')
-	{
-		if (maps->map[sizemap - 1][i] != '1'
-			&& maps->map[sizemap - 1][i] != ' '
-			&& !(maps->map[sizemap - 1][i] >= 9
-				&& maps->map[sizemap - 1][i] <= 13))
-		{
-			printf("Erreur : la dernier ligne invalide\n");
-			ft_free_maps(maps); // AJOUT
-			exit(EXIT_FAILURE);
-		}
-		i++;
-	}
-	printf("Premier et dernier ligne ok ils ont que des 1\n");
+	ft_check_border_line(maps->map[0], maps);
+	ft_check_border_line(maps->map[sizemap - 1], maps);
 }

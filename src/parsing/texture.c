@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
+/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:35:55 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/16 12:42:24 by sariee           ###   ########.fr       */
+/*   Updated: 2026/07/05 20:28:03 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,25 @@ void	ft_valide_texture(char *path)
 	dotxpm = ft_strrchr (path, '.');
 	if (dotxpm == NULL)
 	{
-		printf("pas d'extention");
-	    free(path);  // AJOUT free path car malloc dans strtrim
+		free(path);
 		exit(EXIT_FAILURE);
 	}
 	resstrncmp = ft_strncmp(dotxpm, ".xpm", 4);
 	if (resstrncmp != 0)
 	{
-		printf("fichier n'est pas un xmp");
-	    free(path);  // AJOUT free path car malloc dans strtrim
+		free(path);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		printf("fichier pas trouvé");
-	    free(path);  // AJOUT free path car malloc dans strtrim
+		free(path);
 		exit(EXIT_FAILURE);
 	}
 	else
-		printf("fichier xpm trouvé\n");
-	close (fd);
+		close (fd);
 }
 
-/*  Si il trouve l'espace il avance de 1 pour trouvé le chemin et 
-    ensutie on peut le comparer */
 char	*ft_path(char *line)
 {
 	char	*path;
@@ -54,7 +48,6 @@ char	*ft_path(char *line)
 	path = ft_strchr(line, ' ');
 	if (path == NULL)
 	{
-		printf("pas bon");
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -65,41 +58,22 @@ char	*ft_path(char *line)
 	return (trimmed);
 }
 
-// retourne 0 quand c'eest ok
-// Je check le chemin de la jjk
-
-/*  Je vais check si NO SO WE et EA sont bon si oui on va verifier le chemin grace a 
-    ft_path qui va nous renvoyé le chemin apres les coordonnée
-    et ft_valide qui va check si c'est ok avec un open*/
-
-// SAM
-// MODIFIE : ajout de t_maps *maps en parametre + stockage des paths
-void	ft_check_texture(char *line, t_maps *maps)
+void	ft_store_texture(char *line, char *tag, char **dest)
 {
 	char	*path;
 
-	if (ft_strncmp(line, "NO", 2) == 0)
+	if (ft_strncmp(line, tag, 2) == 0)
 	{
 		path = ft_path(line);
 		ft_valide_texture(path);
-		maps->path_no = path; // AJOUT : stockage du path
+		*dest = path;
 	}
-	if (ft_strncmp(line, "SO", 2) == 0)
-	{
-		path = ft_path(line);
-		ft_valide_texture(path);
-		maps->path_so = path; // AJOUT : stockage du path
-	}
-	if (ft_strncmp(line, "WE", 2) == 0)
-	{
-		path = ft_path(line);
-		ft_valide_texture(path);
-		maps->path_we = path; // AJOUT : stockage du path
-	}
-	if (ft_strncmp(line, "EA", 2) == 0)
-	{
-		path = ft_path(line);
-		ft_valide_texture(path);
-		maps->path_ea = path; // AJOUT : stockage du path
-	}
+}
+
+void	ft_check_texture(char *line, t_maps *maps)
+{
+	ft_store_texture(line, "NO", &maps->path_no);
+	ft_store_texture(line, "SO", &maps->path_so);
+	ft_store_texture(line, "WE", &maps->path_we);
+	ft_store_texture(line, "EA", &maps->path_ea);
 }
