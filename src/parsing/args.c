@@ -6,7 +6,7 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/20 02:26:50 by britela-          #+#    #+#             */
-/*   Updated: 2026/06/20 02:27:16 by britela-         ###   ########.fr       */
+/*   Updated: 2026/07/05 20:31:52 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,63 +28,43 @@ void	ft_flags(char *line, t_maps *maps)
 		maps->c = 1;
 }
 
-// Traitement de la ligne
-int	ft_line(char *str, t_maps *maps)
+int	ft_read_lines(int fd, t_maps *maps)
 {
-	int		fd;
 	char	*line;
 
-	// SAM SUPPRIME : t_maps maps; et ft_bzero (fait dans le main maintenant)
-	printf ("Choix : %s\n", str);
-	fd = open(str, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Ne peut pas ouvrir le fichier");
-		return (-1);
-	}
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (line[0] != '\n' && line[0] != '\0')
 		{
 			ft_flags(line, maps);
-			ft_check_texture(line, maps); // MODIFIE : ajout de maps
-			ft_check_colors(line, maps);  // MODIFIE : ajout de maps
+			ft_check_texture(line, maps);
+			ft_check_colors(line, maps);
 			ft_check_maps(line, maps);
-			free(line); // ajout de SAM sinon memoire allouer reste comme ca dans le vide
+			free(line);
 		}
 		else
 			free (line);
+		line = get_next_line(fd);
 	}
+	return (0);
+}
+
+int	ft_line(char *str, t_maps *maps)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd < 0)
+	{
+		return (-1);
+	}
+	ft_read_lines(fd, maps);
 	close (fd);
 	ft_check_first_last_line(maps);
 	ft_check_left_right_side(maps);
 	ft_neighbors(maps);
-	if (maps->no == 0 || maps->so == 0 || maps->we == 0 || maps->ea == 0
-		|| maps->f == 0 || maps->c == 0)
-	{
-		printf("Erreur il manque des elements dans la maps");
-		ft_free_maps(maps); // AJOUT
-		exit(EXIT_FAILURE);
-	}
-	if (maps->player == 0)
-	{
-		printf ("Pas de joueur");
-		ft_free_maps(maps); // AJOUT
-		exit(EXIT_FAILURE);
-	}
-	if (maps->player == 1)
-	{
-		printf ("Un seul joueur c'est OK\n");
-	}
-	if (maps->map != NULL)
-	{
-		int i = 0;
-		while (maps->map[i] != NULL)
-		{
-			printf("map[%d] = %s", i, maps->map[i]);
-			i ++;
-		}
-	}
+	ft_check_complete(maps);
 	return (0);
 }
 
@@ -93,7 +73,6 @@ int	ft_is_dot_cub(char *str)
 	char	*dotcub;
 	int		resstrcmp;
 
-	// strchr retourn un NULL;
 	dotcub = ft_strchr (str, '.');
 	if (dotcub == NULL)
 	{
@@ -107,20 +86,17 @@ int	ft_is_dot_cub(char *str)
 	return (1);
 }
 
-// SAM Ajout de t_maps *maps en parametre
 void	ft_args(char *str, t_maps *maps)
 {
-    int res;
-    // verif si c'est un .dot
-    res = ft_is_dot_cub(str);
-    if (res == 0)
-    {
-        printf("Le fichier doit avoir un .cub\n");
-        exit(EXIT_FAILURE);
-    }
-    else
-    {
-    	printf("Le fichier .cub est bon\n");
-    	ft_line(str, maps); // MODIFIE : ajout de maps
+	int	res;
+
+	res = ft_is_dot_cub(str);
+	if (res == 0)
+	{
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		ft_line(str, maps);
 	}
 }
