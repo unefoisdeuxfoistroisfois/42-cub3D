@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
+/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 16:19:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/06/18 20:07:13 by sariee           ###   ########.fr       */
+/*   Updated: 2026/07/05 21:04:26 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,16 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		printf("Erreur");
+		printf("ERROR\n");
+		printf("USAGE : ./cub3D maps/your_map.cub\n");
 		return (1);
 	}
-	ft_bzero(&game, sizeof(t_game)); // AJOUT : init tout a zero
-	ft_args(argv[1], &game.maps); // MODIFIE : passe game.maps
+	ft_bzero(&game, sizeof(t_game));
+	ft_args(argv[1], &game.maps);
 	ft_init_mlx(&game);
-	ft_init_player(&game); // init des joueurs
-	ft_init_textures(&game); // init des textures
-	ft_init_colors(&game); // init des couleurs RGB en int
-	ft_run_mlx(&game); // MODIFIE : passe game 
+	ft_init_player(&game);
+	ft_init_textures(&game);
+	ft_init_colors(&game);
+	ft_run_mlx(&game);
 	return (0);
 }
