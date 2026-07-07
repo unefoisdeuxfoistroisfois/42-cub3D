@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	ft_valide_texture(char *path)
+void	ft_valide_texture(char *path, char *line, t_maps *maps)
 {
 	int		fd;
 	int		resstrncmp;
@@ -22,25 +22,25 @@ void	ft_valide_texture(char *path)
 	if (dotxpm == NULL)
 	{
 		free(path);
-		exit(EXIT_FAILURE);
+		ft_exit_parsing(line, maps);
 	}
 	resstrncmp = ft_strncmp(dotxpm, ".xpm", 4);
 	if (resstrncmp != 0)
 	{
 		free(path);
-		exit(EXIT_FAILURE);
+		ft_exit_parsing(line, maps);
 	}
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
 		free(path);
-		exit(EXIT_FAILURE);
+		ft_exit_parsing(line, maps);
 	}
 	else
 		close (fd);
 }
 
-char	*ft_path(char *line)
+char	*ft_path(char *line, t_maps *maps)
 {
 	char	*path;
 	char	*trimmed;
@@ -48,7 +48,7 @@ char	*ft_path(char *line)
 	path = ft_strchr(line, ' ');
 	if (path == NULL)
 	{
-		exit(EXIT_FAILURE);
+		ft_exit_parsing(line, maps);
 	}
 	else
 	{
@@ -58,22 +58,22 @@ char	*ft_path(char *line)
 	return (trimmed);
 }
 
-void	ft_store_texture(char *line, char *tag, char **dest)
+void	ft_store_texture(char *line, char *tag, char **dest, t_maps *maps)
 {
 	char	*path;
 
 	if (ft_strncmp(line, tag, 2) == 0)
 	{
-		path = ft_path(line);
-		ft_valide_texture(path);
+		path = ft_path(line, maps);
+		ft_valide_texture(path, line, maps);
 		*dest = path;
 	}
 }
 
 void	ft_check_texture(char *line, t_maps *maps)
 {
-	ft_store_texture(line, "NO", &maps->path_no);
-	ft_store_texture(line, "SO", &maps->path_so);
-	ft_store_texture(line, "WE", &maps->path_we);
-	ft_store_texture(line, "EA", &maps->path_ea);
+	ft_store_texture(line, "NO", &maps->path_no, maps);
+	ft_store_texture(line, "SO", &maps->path_so, maps);
+	ft_store_texture(line, "WE", &maps->path_we, maps);
+	ft_store_texture(line, "EA", &maps->path_ea, maps);
 }

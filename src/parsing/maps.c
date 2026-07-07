@@ -23,10 +23,7 @@ void	ft_player(char *line, t_maps *maps)
 			|| line[i] == 'W' || line[i] == 'E')
 		{
 			if (maps->player == 1)
-			{
-				ft_free_maps(maps);
-				exit(EXIT_FAILURE);
-			}
+				ft_exit_parsing(line, maps);
 			maps->player = 1;
 		}
 		i ++;
@@ -77,10 +74,7 @@ int	ft_check_maps(char *line, t_maps *maps)
 			if (line[i] != '0' && line[i] != '1' && line[i] != ' '
 				&& line[i] != 'N' && line[i] != 'S'
 				&& line[i] != 'W' && line[i] != 'E')
-			{
-				ft_free_maps(maps);
-				exit(EXIT_FAILURE);
-			}
+				ft_exit_parsing(line, maps);
 			i ++;
 		}
 		ft_add_line(line, maps);

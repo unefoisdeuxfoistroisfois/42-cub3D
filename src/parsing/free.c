@@ -66,6 +66,14 @@ void	ft_exit_if(int cond, t_maps *maps)
 	}
 }
 
+void	ft_exit_parsing(char *line, t_maps *maps)
+{
+	if (line)
+		free(line);
+	ft_free_maps(maps);
+	exit(EXIT_FAILURE);
+}
+
 void	ft_check_complete(t_maps *maps)
 {
 	if (maps->no == 0 || maps->so == 0 || maps->we == 0 || maps->ea == 0

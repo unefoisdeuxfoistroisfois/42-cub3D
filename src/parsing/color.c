@@ -12,21 +12,22 @@
 
 #include "cub3d.h"
 
-void	ft_valide_colors(char *line, int *rgb)
+void	ft_valide_colors(char *trimmed, int *rgb, char *line, t_maps *maps)
 {
 	char	**ressplit;
 	int		resatoi;
 	int		i;
 
-	ressplit = ft_split(line, ',');
+	ressplit = ft_split(trimmed, ',');
 	i = 0;
 	while (ressplit[i] != NULL)
 	{
 		resatoi = ft_atoi(ressplit[i]);
-		if (resatoi < 0 || resatoi > 255)
+		if (resatoi < 0 || resatoi > 255 || i >= 3)
 		{
 			ft_free_split(ressplit);
-			exit(EXIT_FAILURE);
+			free(trimmed);
+			ft_exit_parsing(line, maps);
 		}
 		rgb[i] = resatoi;
 		i++;
@@ -34,12 +35,13 @@ void	ft_valide_colors(char *line, int *rgb)
 	if (i != 3)
 	{
 		ft_free_split(ressplit);
-		exit(EXIT_FAILURE);
+		free(trimmed);
+		ft_exit_parsing(line, maps);
 	}
 	ft_free_split(ressplit);
 }
 
-char	*ft_strcolors(char *line)
+char	*ft_strcolors(char *line, t_maps *maps)
 {
 	char	*res;
 	char	*trimmed;
@@ -47,7 +49,7 @@ char	*ft_strcolors(char *line)
 	res = ft_strchr(line, ' ');
 	if (res == NULL)
 	{
-		exit(EXIT_FAILURE);
+		ft_exit_parsing(line, maps);
 	}
 	else
 	{
@@ -63,14 +65,14 @@ void	ft_check_colors(char *line, t_maps *maps)
 
 	if (ft_strncmp(line, "F ", 2) == 0)
 	{
-		resstrcolors = ft_strcolors(line);
-		ft_valide_colors(resstrcolors, maps->floor);
+		resstrcolors = ft_strcolors(line, maps);
+		ft_valide_colors(resstrcolors, maps->floor, line, maps);
 		free(resstrcolors);
 	}
 	if (ft_strncmp(line, "C ", 2) == 0)
 	{
-		resstrcolors = ft_strcolors(line);
-		ft_valide_colors(resstrcolors, maps->ceil);
+		resstrcolors = ft_strcolors(line, maps);
+		ft_valide_colors(resstrcolors, maps->ceil, line, maps);
 		free(resstrcolors);
 	}
 }
