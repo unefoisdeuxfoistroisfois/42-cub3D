@@ -181,6 +181,7 @@ int		ft_mouse(int x, int y, t_game *game);
 int		ft_clean(t_game *game); // t_game *game au lieu de t_data *data
 void	ft_free_maps(t_maps *maps);
 void	ft_exit_if(int cond, t_maps *maps);
+void	ft_exit_parsing(char *line, t_maps *maps);
 
 // args.c
 void	ft_args(char *str, t_maps *maps); // Ajout de pointeur sur la structure maps
@@ -193,14 +194,14 @@ void	ft_check_complete(t_maps *maps);
 
 // texture.c
 void    ft_check_texture(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps
-char    *ft_path(char *line);
-void    ft_valide_texture(char *path);
-void	ft_store_texture(char *line, char *tag, char **dest);
+char    *ft_path(char *line, t_maps *maps);
+void    ft_valide_texture(char *path, char *line, t_maps *maps);
+void	ft_store_texture(char *line, char *tag, char **dest, t_maps *maps);
 
 // colors.c
 void    ft_check_colors(char *line, t_maps *maps); // Ajout de pointeur sur la structure maps
-char    *ft_strcolors(char *line);
-void    ft_valide_colors(char *line, int *rgb);  // Ajout de int *rgb
+char    *ft_strcolors(char *line, t_maps *maps);
+void    ft_valide_colors(char *trimmed, int *rgb, char *line, t_maps *maps);
 
 // maps.c
 int 	ft_check_maps(char *line, t_maps *maps);
