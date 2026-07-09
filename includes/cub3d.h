@@ -219,6 +219,7 @@ int		ft_last_non_space(char *str);
 
 // maps3.c
 void    ft_neighbors(t_maps *maps);
+char	ft_char_at(char *row, int j);
 
 //	init.c
 void    ft_init_player(t_game *game);

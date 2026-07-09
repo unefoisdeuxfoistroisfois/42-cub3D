@@ -6,7 +6,7 @@
 /*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:32:35 by sariee            #+#    #+#             */
-/*   Updated: 2026/07/05 20:23:57 by britela-         ###   ########.fr       */
+/*   Updated: 2026/07/09 15:43:06 by britela-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ int	ft_last_non_space(char *str)
 	return (j);
 }
 
+char	ft_char_at(char *row, int j)
+{
+	if (j < 0 || j >= (int)ft_strlen(row))
+		return (' ');
+	return (row[j]);
+}
+
 void	ft_neighbors(t_maps *maps)
 {
 	int	i;
@@ -45,9 +52,10 @@ void	ft_neighbors(t_maps *maps)
 		{
 			if (maps->map[i][j] == '0')
 			{
-				ft_exit_if(i > 0 && maps->map[i - 1][j] == ' ', maps);
+				ft_exit_if(i > 0
+					&& ft_char_at(maps->map[i - 1], j) == ' ', maps);
 				ft_exit_if(maps->map[i + 1] != NULL
-					&& maps->map[i + 1][j] == ' ', maps);
+					&& ft_char_at(maps->map[i + 1], j) == ' ', maps);
 				ft_exit_if(j > 0 && maps->map[i][j - 1] == ' ', maps);
 				ft_exit_if(maps->map[i][j + 1] != '\0'
 					&& maps->map[i][j + 1] == ' ', maps);
