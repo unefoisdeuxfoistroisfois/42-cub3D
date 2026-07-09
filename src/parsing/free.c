@@ -29,7 +29,7 @@ int	ft_clean(t_game *game)
 	ft_free_maps(&game->maps);
 	if (game->data.mlx)
 	{
-		mlx_destroy_display(game->data.mlx);
+		MLX_DESTROY_DISPLAY(game->data.mlx);
 		free(game->data.mlx);
 	}
 	printf("YOU LEFT\n");
