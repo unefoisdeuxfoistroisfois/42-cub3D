@@ -6,7 +6,7 @@
 /*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:29:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/07/09 17:10:53 by sariee           ###   ########.fr       */
+/*   Updated: 2026/07/09 17:40:42 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_exit_if(int cond, t_maps *maps)
 	if (cond)
 	{
 		ft_free_maps(maps);
+		get_next_line(-1);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -72,6 +73,7 @@ void	ft_exit_parsing(char *line, t_maps *maps)
 	if (line)
 		free(line);
 	ft_free_maps(maps);
+	get_next_line(-1);
 	exit(EXIT_FAILURE);
 }
 
