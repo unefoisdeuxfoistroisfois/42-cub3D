@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: britela- <britela-@student.42belgium.be    +#+  +:+       +#+        */
+/*   By: sariee <sariee@student.42belgium.be>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:29:39 by sariee            #+#    #+#             */
-/*   Updated: 2026/07/05 20:59:09 by britela-         ###   ########.fr       */
+/*   Updated: 2026/07/09 17:10:53 by sariee           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	ft_clean(t_game *game)
 	ft_free_maps(&game->maps);
 	if (game->data.mlx)
 	{
+		mlx_destroy_display(game->data.mlx);
 		free(game->data.mlx);
 	}
 	printf("YOU LEFT\n");
