@@ -33,6 +33,13 @@
 # define D_MAC	2
 # define LEFT_MAC	123
 # define RIGHT_MAC	124
+
+// MLX destroy_display n'existe pas sur la mlx Mac (OpenGL)
+# ifdef __APPLE__
+#  define MLX_DESTROY_DISPLAY(mlx)
+# else
+#  define MLX_DESTROY_DISPLAY(mlx) mlx_destroy_display(mlx)
+# endif
 # define ESC_MAC	53
 
 // Brad : mlx_mouse_move n'a pas la meme signature sur Mac et Linux
