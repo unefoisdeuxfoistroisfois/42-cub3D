@@ -297,7 +297,9 @@ Once a wall has been hit, the renderer knows which face has been intersected (No
 
 The impact position gives the horizontal coordinate `tex_x`.
 
-Then I compute `tex_y` for every pixel of the wall before drawing it. Doing this prevents the texture from sliding when the player gets close to a wall.
+Then, for every pixel of the wall, I compute `tex_y` from a `tex_pos` value that advances by a fixed step (`tex_step = 1 / line_height`).
+
+The detail that actually matters is how `tex_pos` starts: it is derived from the **real, non-clamped** `line_height` and the true center of the wall, not from `draw_start`, which gets clamped to `0` when the wall is taller than the screen. If I used the clamped `draw_start` instead, the starting point in the texture would reset every time the wall goes off-screen, making the texture visibly slide as the player gets close to a wall.
 
 ---
 
