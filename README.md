@@ -59,90 +59,308 @@ The parsing reads and validates the `.cub` scene file before launching the engin
 
 ## Exec
 
-La variable `double` est un nombre decimal en C comme un `float` mais plus precis. 
-Il faut utiliser `double` comme variable car la position, direction, champ de vision ne sont pas des entier et si on utilisait des `int` on perdrait toute la precision et on casserait tout le raycasting. 
+Once the parsing is done, I start rendering the game. The first thing I do is initialize the player, load the textures and prepare everything needed to draw the scene.
 
-Init du player / direction / fov :
+To render the 3D world, I use the **raycasting** technique. Instead of drawing the whole scene at once, I compute one vertical screen column at a time.
 
-Le FOV (Champ de vision) :
+---
 
-Il sera toujours perpendiculaire on aura la direction puis de chaque cote on tend nos bras pour qu'il soit perpendiculaire et que la direction sois bien la separation entre nos deux bras tendus et que l'angle de chaque coter entre dir et plane soit la meme. 
+## Player Initialization
 
-Init couleurs : 
+The first thing I do is scan the map until I find the only player spawn (`N`, `S`, `E` or `W`).
 
-un int couleur MLX est encodé sur 32 bits divisés en 4 octets de 8 bits chacun :
-bits :  31-24    23-16    15-8     7-0
-        alpha    rouge    vert     bleu
-        0x00     0xRR     0xGG     0xBB
+I place the player at the center of the tile by adding `0.5` to both coordinates. Without this offset, the player could start too close to a wall.
 
-Chaque composante occupe exactement 8 bits. Donc :
+Two vectors define the player's view:
 
-B est aux bits 0-7 → pas de décalage
-G est aux bits 8-15 → décalage de 8
-R est aux bits 16-23 → décalage de 16
-Alpha bits 24-31 → on ne l'utilise pas, reste à 0
+```text
+                    Camera Plane
+        <------------------------------>
 
-Un pixel sur un ecran c'est 3 composants : Rouge, Vert, Bleu.
-La MLX represente une couleur comme un seul entier de 32 bits comme ceci : 
-[ 00000000 | RRRRRRRR | GGGGGGGG | BBBBBBBB ]
-  8 bits     8 bits     8 bits     8 bits
+                    ^
+                    |
+                    |
+                    P ---------> Direction
+                 Player
+```
 
-Le probleme que nous on a c'est qu'on a 3 valeurs separees et il faut qu'on les empiles dans un seul entier. Donc on va decaler :
+- **Direction vector (`dir_x`, `dir_y`)**  
+  This vector shows where the player is looking.
 
-	- R << 16	pousse R dans les bits 16 à 23 — sa position dans l'entier. 
-	- G << 8	pousse G dans les bits 8 à 15. 
-	- B			reste en position 0 à 7.
+- **Camera plane (`plane_x`, `plane_y`)**  
+  This vector is always perpendicular to the direction vector. Together, they define the player's field of view.
 
-puis on va utiliser le `|` qui est un `OU` en binaire qui permet de combiner les trois sans qu'ils se chevauchent puisqu'ils occupent chacun une zone differente. 
+I use `double` values for the player's position and vectors because they keep movement, rotations and raycasting calculations precise.
 
-Exemple avec notre maps.cub :
-F 220,100,0 :
-220 << 16 → 0x00DC0000
-100 << 8  → 0x00006400
-0         → 0x00000000
-résultat  → 0x00DC6400
-donc game->floor_color = 0x00DC6400
+---
 
-C 225,30,0 :
-225 << 16 → 0x00E10000
-30  << 8  → 0x00001E00
-0         → 0x00000000
-résultat  → 0x00E11E00
-donc game->ceiling_color = 0x00E11E00
+## Texture Initialization
 
-RENDER : 
+Before rendering anything, I load the four wall textures (`NO`, `SO`, `WE`, `EA`) from their `.xpm` files using MiniLibX.
 
-dans la fonction ft put pixels, on fait un calcule : game->data.addr + (y * game->data.line_length + x * (game->data.bits_per_pixel / 8)) car addr est un char* est composer de ex : `[(0,0)][(1,0)][(2,0)][(3,0)][(0,1)][(1,1)][(2,1)][(3,1)][(0,2)]` donc cette formule nous permet de pouvoir acceder au pixel que l'on veut pour pouvoir y ajouter ce que l'on veut exactement nous
+For each texture, I store:
 
-RAYCASTING : 
+- image pointer;
+- width and height;
+- pixel buffer address;
+- bits per pixel;
+- line length;
+- endian information.
 
-Le principe général
-Le raycaster simule une vue 3D en travaillant colonne par colonne. L'écran fait WIDTH pixels de large, donc on lance WIDTH rayons — un par colonne verticale.
-Pour chaque colonne, on calcule où le rayon touche un mur, on mesure la distance, et on dessine la colonne entière d'un coup : plafond en haut, mur au milieu, sol en bas. Plus le mur est proche, plus la colonne du mur est haute à l'écran. Plus il est loin, plus elle est petite.
+I keep this information because I need it to read every pixel from the texture while rendering a wall.
 
-La direction du rayon
-Le joueur a une direction (dir_x, dir_y) — le vecteur qui pointe droit devant lui. Il a aussi un plan caméra (plane_x, plane_y) — une ligne horizontale imaginaire devant lui qui représente la largeur de son champ de vision.
-Pour chaque colonne x, on calcule d'abord sa position normalisée dans l'écran :
-camera_x = 2 * x / WIDTH - 1
-Ça donne une valeur entre -1 (extrême gauche) et 1 (extrême droite), 0 étant le centre. C'est une convention pour ne pas travailler en pixels bruts.
-Ensuite la direction du rayon pour cette colonne :
-ray_dir_x = dir_x + plane_x * camera_x
-ray_dir_y = dir_y + plane_y * camera_x
+---
 
-Colonne du centre (camera_x = 0) → rayon va exactement droit devant
-Colonne à droite (camera_x = 1) → rayon dévie vers la droite
-Colonne à gauche (camera_x = -1) → rayon dévie vers la gauche
+## Color Initialization
 
-C'est une interpolation entre les bords du plan caméra selon la position dans l'écran.
+The floor and ceiling colors are stored as three RGB values.
+
+Before using them, I pack them into a single 32-bit integer.
+
+```text
+0x00RRGGBB
+```
+
+```text
+Red   -> bits 16-23
+Green -> bits  8-15
+Blue  -> bits  0-7
+```
+
+This format is the one MiniLibX expects when writing pixels into the image buffer.
+
+---
+
+## Rendering Pipeline
+
+Once everything is initialized, the rendering loop runs continuously through `mlx_loop_hook`.
+
+Each frame always follows the same steps:
+
+```text
+Keyboard / Mouse
+        │
+        ▼
+ Update Player
+        │
+        ▼
+ Raycasting
+        │
+        ▼
+ Texture Mapping
+        │
+        ▼
+ Draw Minimap
+        │
+        ▼
+ Display Frame
+```
+
+1. Read the current keyboard state.
+2. Update the player's movement.
+3. Update the player's rotation.
+4. Run the raycasting algorithm.
+5. Draw the minimap.
+6. Display the final frame.
+
+I first draw everything into an off-screen image. Once the frame is finished, I display it with a single `mlx_put_image_to_window()` call. This avoids visible flickering.
+
+---
+
+## Writing Pixels
+
+Instead of using drawing functions, I write every pixel directly into the MLX image buffer.
+
+Its address depends on:
+
+- the pixel coordinates `(x, y)`;
+- the image line length;
+- the number of bytes per pixel.
+
+This lets me access every pixel directly without relying on higher-level drawing functions.
+
+---
+
+## Player Movement
+
+Movement is entirely vector-based.
+
+```text
+             Forward
+                ▲
+                │
+Left ◄──── P ───► Right
+                │
+                ▼
+            Backward
+```
+
+To move forward or backward, I use the direction vector.
+
+To strafe left or right, I use its perpendicular vector.
+
+Before applying the new position, I check the surrounding cells with a safety margin. This prevents the player from entering walls or clipping through corners.
+
+---
+
+## Player Rotation
+
+To rotate the camera, I apply a 2D rotation matrix to both the direction vector and the camera plane.
+
+```text
+Before                 After
+
+   ↑                     ↗
+   │                    /
+   P                   P
+```
+
+```text
+x' = x cos(θ) - y sin(θ)
+y' = x sin(θ) + y cos(θ)
+```
+
+Rotating both vectors together keeps the camera plane perpendicular to the direction vector and preserves the correct field of view.
+
+Rotation can come from the keyboard or from horizontal mouse movement.
+
+---
+
+## Raycasting
+
+The raycasting algorithm renders one screen column at a time.
+
+For every column, it:
+
+1. computes the ray direction;
+2. initializes the DDA variables;
+3. traverses the map;
+4. finds the first wall;
+5. computes the perpendicular distance;
+6. calculates the projected wall height;
+7. selects the correct texture;
+8. draws the final column.
+
+```text
+               Camera Plane
+
+ | | | | | | | | | | | | | |
+
+  \  \  \  |  /  /  /  /  /
+   \  \  \ | /  /  /  /  /
+    \  \  \|/  /  /  /  /
+          Player
+```
+
+I repeat this process for every screen column, so each ray produces one vertical slice of the final image.
+
+---
+
+## DDA Algorithm
+
+To detect walls, I use the **Digital Differential Analyzer (DDA)** algorithm.
+
+The ray does not move pixel by pixel. Instead, it jumps from one map cell to the next until it reaches a wall.
+
+```text
++---+---+---+---+---+
+|   |   |   |   |   |
++---+---+---+---+---+
+| P | → | → | X |   |
++---+---+---+---+---+
+|   |   |   |   |   |
++---+---+---+---+---+
+
+P = Player
+X = First wall hit
+```
+
+At each step, the algorithm compares the next vertical and horizontal intersection and keeps the closest one.
+
+---
+
+## Texture Mapping
+
+Once a wall has been hit, the renderer knows which face has been intersected (North, South, East or West) and selects the corresponding texture.
+
+```text
+ Wall
+
++------------------+
+|        ●         |
+|                  |
++------------------+
+         │
+         ▼
+      tex_x
+```
+
+The impact position gives the horizontal coordinate `tex_x`.
+
+Then I compute `tex_y` for every pixel of the wall before drawing it. Doing this prevents the texture from sliding when the player gets close to a wall.
+
+---
+
+## Floor, Ceiling and Walls
+
+Each rendered column is split into three parts.
+
+```text
+┌───────────────┐
+│    Ceiling    │
+├───────────────┤
+│ Textured Wall │
+├───────────────┤
+│     Floor     │
+└───────────────┘
+```
+
+Pixels above the wall use the ceiling color.
+
+Pixels below use the floor color.
+
+Pixels inside the wall are read directly from the selected texture.
+
+---
+
+## Minimap
+
+After rendering the 3D scene, I draw the minimap.
+
+```text
+■■■■■■■■■
+■□□□□□□□■
+■□□□P□□□■
+■□□□□□□□■
+■■■■■■■■■
+
+■ Wall
+□ Empty space
+P Player
+```
+
+I only display a small area around the player. Before drawing each cell, I also check that I'm still inside the map.
+
+---
+
+## Event Handling
+
+Keyboard events are handled through MiniLibX hooks.
+
+Instead of moving the player immediately, I simply update an internal key state array.
+
+The rendering loop reads this array every frame, making movement smooth while allowing multiple keys to be pressed at the same time.
+
+Horizontal mouse movement is converted into a rotation angle and applied to the camera.
 
 ## Resources
 
 ### References
+
 - [Medium by Elmehdielgarouaz](https://medium.com/@elmehdielgarouaz/from-flat-to-fantastic-how-cub3ds-ray-casting-engine-transforms-2d-into-3d-647ff2f7fd4f)
 - [Lode's Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)
 - [miniLibX documentation](https://harm-smits.github.io/42docs/libs/minilibx)
 
 ### AI usage
-Claude was used to help debug parsing issues, understand code structure and 
-organization, and review logic errors. All code was written and understood by 
-the authors.
+
+Claude was used to help debug parsing issues, understand code structure and organization, and review logic errors. All code was written and understood by the authors.
